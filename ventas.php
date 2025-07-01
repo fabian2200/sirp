@@ -2,10 +2,15 @@
 session_start();
 include_once("conexion.php");
 if(($_SESSION['logueado']) == true){ 
+$sql="SELECT COUNT(*) FROM `cliente` where estatus = 1";
+$resultado =mysqli_fetch_array($con -> query($sql));
+$sql2="SELECT SUM(pines) FROM `compra`";
+$resultado2 =mysqli_fetch_array($con -> query($sql2));
+$sql3="SELECT SUM(precio) FROM `compra`";
+$resultado3 =mysqli_fetch_array($con -> query($sql3));
 ?> 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
   <meta charset="utf-8">
@@ -22,9 +27,6 @@ if(($_SESSION['logueado']) == true){
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -51,7 +53,7 @@ if(($_SESSION['logueado']) == true){
       <li class="nav-item active">
         <a class="nav-link" href="administrador.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Tablero</span></a>
+          <span>Contabilidad</span></a>
       </li>
 
       <!-- Divider -->
@@ -66,7 +68,7 @@ if(($_SESSION['logueado']) == true){
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Clientes</span>
+          <span>Compra</span>
         </a>
         <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -77,6 +79,7 @@ if(($_SESSION['logueado']) == true){
           </div>
         </div>
       </li>
+
 
 
       <!-- Nav Item - Tables -->
@@ -164,49 +167,69 @@ if(($_SESSION['logueado']) == true){
               </div>
             </li>
 
-
           </ul>
 
         </nav>
         <!-- End of Topbar -->
-        <div class="card shadow mb-4 m-4 p-4">
-          <!-- Begin Page Content -->
-          <div class="container-fluid">
-           
-            <div class="form-row"><h2>Registro de nuevo cliente</h2></div>
-            <hr>
-            <form method="POST">
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="Nombre">Nombre</label>
-                  <input type="text" class="form-control" id="Nombre" placeholder="Nombre" name="Nombre" required>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          
+
+          <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-6">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h3 class="m-0 font-weight-bold text-primary"> Ventas realizadas</h3>
                 </div>
-                <div class="form-group col-md-6">
-                  <label for="Apellido">Apellido</label>
-                  <input type="text" class="form-control" id="Apellido" placeholder="Apellido" name="Apellido" required>
+                <!-- Card Body -->
+                <div class="card-body" style="height: fit-content;">
+                  <div class="chart-area" style="height: auto;">
+                     <?php 
+                        $consulta = "SELECT * FROM compra co INNER JOIN cliente cli ON co.id_cliente = cli.idcl ";
+                        $clientes = $con->query($consulta);
+                     ?>
+                     <table class="table" id="example" style="width: 100%;">
+                       <thead>
+                         <tr>
+                           <th scope="col">ID Venta</th>
+                           <th scope="col">Cliente</th>
+                           <th scope="col">Fecha</th>
+                           <th scope="col">Pines comprados</th>
+                           <th scope="col">Precio</th>
+                           <th scope="col">Total</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                        <?php  
+                          while ($row = mysqli_fetch_array($clientes)) {
+                        ?>
+                         <tr>
+                           <td><?php echo $row[0] ?></td>
+                           <td><?php echo $row["nombre"] ?></td>
+                           <td><?php echo $row["dia"]."/".$row["mes"]."/".$row["ano"] ?></td>
+                           <td><?php echo $row[1] ?></td>
+                           <td>$<?php echo number_format($row["precio"], 0, ',', '.') ?></td>
+                           <td>$ <?php echo number_format($row["precio"] * $row[1], 0, ',', '.') ?></td>
+                         </tr>
+                        <?php  
+                          }   
+                        ?>
+                       </tbody>
+                    </table>
+                  </div>
                 </div>
-                
               </div>
-              <div class="form-row">
-                <div class="form-group col-md-4">
-                  <label for="Pines">Pines</label>
-                  <input type="number" class="form-control" id="Pines" placeholder="# De Pines" name="Pines" required>
-                </div>
-                <div class="form-group col-md-4">
-                <label for="Email">Correo</label>
-                <input type="email" class="form-control" id="Correo" name="Correo" placeholder="1234@example.com" required>
-                </div>
-                <div class="form-group col-md-4">
-                <label for="Precio X Pin">Precio X Pin</label>
-                <input type="number" class="form-control" id="Precio" name="Precio" placeholder="$20000" required>
-                </div>
-              </div>
-            <hr>
-            <button type="button" class="btn btn-primary" onclick="guardar_cliente()">Guardar</button>
-            </form>
+            </div>
+
           </div>
-        <!-- /.container-fluid -->
+
         </div>
+        <!-- /.container-fluid -->
+
       </div>
       <!-- End of Main Content -->
 
@@ -214,7 +237,7 @@ if(($_SESSION['logueado']) == true){
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; ICP V2.0 2020</span>
+            <span>Copyright &copy; ICP V2.0 <script>document.write(new Date().getFullYear());</script></span>
           </div>
         </div>
       </footer>
@@ -231,7 +254,7 @@ if(($_SESSION['logueado']) == true){
     <i class="fas fa-angle-up"></i>
   </a>
 
- <!-- Logout Modal-->
+  <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -266,55 +289,34 @@ if(($_SESSION['logueado']) == true){
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css" />
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
   <script>
-    function guardar_cliente(){
-      if($('#Nombre').val() == '' || $('#Apellido').val() == '' || $('#Pines').val() == '' || $('#Correo').val() == '' || $('#Precio').val() == '' ){
-        Swal.fire({
-          title: 'Error',
-          text: 'Por favor, complete todos los campos',
-          icon: 'error',
-          showConfirmButton: true,
-          allowOutsideClick: false,
-          timer: 1500
-        });
-        return;
-      }else{
-        $.ajax({
-          url: 'acciones/guardar_cliente.php',
-          type: 'POST',
-          data: $('form').serialize(),
-          beforeSend: function(){
-            Swal.fire({
-              title: 'Guardando...',
-              text: 'Espere un momento por favor',
-              icon: 'info',
-              showConfirmButton: false,
-              allowOutsideClick: false,
-              progressBar: true,
-              didOpen: () => {
-                Swal.showLoading();
-              }
-            });
+    $(document).ready(function() {
+      $('#example').DataTable({
+        "order": [[ 0, "asc" ]],
+        "columnDefs": [{
+          "targets": 0
+        }],
+        language: {
+          "sProcessing": "Procesando...",
+          "sLengthMenu": "Mostrar _MENU_ resultados",
+          "sZeroRecords": "No se encontraron resultados",
+          "sEmptyTable": "Ningún dato disponible en esta tabla",
+          "sInfo": "Mostrando resultados _START_-_END_ de  _TOTAL_",
+          "sInfoEmpty": "Mostrando resultados del 0 al 0 de un total de 0 registros",
+          "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+          "sSearch": "Buscar:",
+          "sLoadingRecords": "Cargando...",
+          "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
           },
-          success: function(response){
-            var data = JSON.parse(response);
-            debugger;
-            Swal.fire({ 
-              title: data.mensaje,
-              icon: data.codigo == 1 ? 'success' : 'error',
-              showConfirmButton: true,
-              allowOutsideClick: false,
-              timer: 1500,
-              didClose: () => {
-                if(data.codigo == 1){
-                  location.href = 'ventas.php';
-                }
-              }
-            });
-          }
-        });
-      }
-    }
+        }
+      });
+    });
   </script>
 
 </body>

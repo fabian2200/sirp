@@ -22,6 +22,30 @@ if(($_SESSION['logueado']) == true){ ?>
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+  <!-- Select2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+  <!-- jQuery (requerido por Select2) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Select2 JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    .select2-container .select2-selection--single {
+      box-sizing: border-box;
+      cursor: pointer;
+      display: block;
+      height: 38px;
+      user-select: none;
+      -webkit-user-select: none;
+      display: flex;
+      align-items: center;
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -64,11 +88,12 @@ if(($_SESSION['logueado']) == true){ ?>
           <i class="fas fa-fw fa-cog"></i>
           <span>Clientes</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Opciones:</h6>
-             <a class="collapse-item" href="registrar.php">Compra cliente nuevo</a>
+            <a class="collapse-item" href="registrar.php">Compra cliente nuevo</a>
             <a class="collapse-item" href="comprar.php">Compra cliente existente</a>
+            <a class="collapse-item" href="ventas.php">Ventas</a>
           </div>
         </div>
       </li>
@@ -77,7 +102,6 @@ if(($_SESSION['logueado']) == true){ ?>
     
 
       <!-- Divider -->
-      <hr class="sidebar-divider">
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
@@ -143,7 +167,7 @@ if(($_SESSION['logueado']) == true){ ?>
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                  <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['nombre']; ?></span>
-                <img class="img-profile rounded-circle" src="https://img2.freepng.es/20181108/gkx/kisspng-computer-icons-clip-art-portable-network-graphics-government-los-santos-5be4b7db1f0f80.4023802615417159311272.jpg">
+                <img class="img-profile rounded-circle" src="img/user.png">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -170,38 +194,39 @@ if(($_SESSION['logueado']) == true){ ?>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-<div class="container-fluid">
-  <hr>
-   <div class="form-row text-center"><h2>Registro de nueva compra</h2></div>
-        <hr>
-       <form action="acciones/guardar_compra.php" method="POST">
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <label for="Identificacion">#Identificacion</label>
-            <select name="Identificacion" class="form-control" id="Identificacion" required>
-            <?php 
-                 $clientes = $con->query('SELECT * FROM cliente where estatus=1');
-                 while ($row = mysqli_fetch_array($clientes)) {
-             ?>         
-                <option value="<?php echo $row[0] ?>"><?php echo $row[1]; ?></option>
-            <?php 
-              }
-             ?>
-            </select>
-          </div>
-          <div class="form-group col-md-4">
-            <label for="Empleados"># De Pines</label>
-            <input type="number" class="form-control" id="Pines" min="1" name="Pines"  required>
-          </div>
-          <div class="form-group col-md-4">
-             <label for="Precio X Pin">Precio X Pin</label>
-            <input type="number" class="form-control" id="Precio" name="Precio" placeholder="$20000" required>
-            </div>      
-        </div>
-      <hr>
-       <button type="submit" class="btn btn-success">Guardar</button>
-      </form>
-</div>  
+        <div class="container-fluid">
+          <hr>
+          <div class="form-row text-center"><h2>Registro de nueva compra</h2></div>
+                <hr>
+              <form  method="POST">
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="Identificacion">#Identificacion</label>
+                    <select name="Identificacion" class="form-control" id="Identificacion" required>
+                      <option value="">Seleccione un cliente</option>
+                    <?php 
+                        $clientes = $con->query('SELECT * FROM cliente where estatus=1 order by nombre asc');
+                        while ($row = mysqli_fetch_array($clientes)) {
+                    ?>         
+                        <option value="<?php echo $row[0] ?>"><?php echo $row[1]; ?></option>
+                    <?php 
+                      }
+                    ?>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="Empleados"># De Pines</label>
+                    <input type="number" class="form-control" id="Pines" min="1" name="Pines"  required>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="Precio X Pin">Precio X Pin</label>
+                    <input type="number" class="form-control" id="Precio" name="Precio" placeholder="$20000" required>
+                    </div>      
+                </div>
+              <hr>
+              <button type="button" class="btn btn-success" onclick="guardar_compra()">Guardar</button>
+              </form>
+        </div>  
         <!-- /.container-fluid -->
 
       </div>
@@ -263,6 +288,64 @@ if(($_SESSION['logueado']) == true){ ?>
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#Identificacion').select2({
+        placeholder: "Seleccione un cliente",
+        width: '100%'
+      });
+    });
+  </script>
+  <script>
+    function guardar_compra(){
+      if($('#Identificacion').val() == '' || $('#Pines').val() == '' || $('#Precio').val() == '' ){
+        Swal.fire({
+          title: 'Error',
+          text: 'Por favor, complete todos los campos',
+          icon: 'error',
+          showConfirmButton: true,
+          allowOutsideClick: false,
+          timer: 1500
+        });
+        return;
+      }else{
+        $.ajax({
+          url: 'acciones/guardar_compra.php',
+          type: 'POST',
+          data: $('form').serialize(),
+          beforeSend: function(){
+            Swal.fire({
+              title: 'Guardando...',
+              text: 'Espere un momento por favor',
+              icon: 'info',
+              showConfirmButton: false,
+              allowOutsideClick: false,
+              progressBar: true,
+              didOpen: () => {
+                Swal.showLoading();
+              }
+            });
+          },
+          success: function(response){
+            var data = JSON.parse(response);
+            Swal.fire({
+              title: data.mensaje,
+              icon: data.codigo == 1 ? 'success' : 'error',
+              showConfirmButton: true,
+              allowOutsideClick: false,
+              timer: 1500,
+              didClose: () => {
+                if(data.codigo == 1){
+                  location.href = 'ventas.php';
+                }
+              }
+            });
+          }
+        });
+      }
+    }
+  </script>
+
 
 </body>
 

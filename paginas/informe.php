@@ -17,6 +17,7 @@ if(($_SESSION['logueado']) == true){
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
@@ -26,7 +27,7 @@ if(($_SESSION['logueado']) == true){
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
+          <h4 class="modal-title">Informe Sociodemografico</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
@@ -37,7 +38,7 @@ if(($_SESSION['logueado']) == true){
         
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times"></i></button>
         </div>
         
       </div>
@@ -45,8 +46,9 @@ if(($_SESSION['logueado']) == true){
   </div>
 
 <div class="container">
-  <hr>
+  <br>
   <h2 style="text-align: center">Gestion de Informes</h2>
+  <hr>
   <div class="alert alert-danger" role="alert">
     <strong>Importante!</strong> usted podra descargar <strong>3 veces</strong> el informe sociodemografico, y el informe general por departamento, de cada una de sus empresas.
   </div>  
@@ -103,21 +105,19 @@ if(($_SESSION['logueado']) == true){
           ?>
         </td>
         <td style="text-align: center"> 
-          <strong>Generar</strong> <br><br>
+          <strong>Generar</strong><br>
           <?php 
               
             $departamentos = $con->query("SELECT e.areatrabajo,d.nombre,COUNT(*) FROM `empleado` e INNER JOIN departamentos d ON e.areatrabajo = d.iddepto WHERE e.idempresa=$row[0] GROUP BY e.areatrabajo");
 
             while ($rowd = mysqli_fetch_array($departamentos)) { 
               $cantidadgenerada = $con->query("SELECT COUNT(*),`nombre_archivo` FROM `informe_general` WHERE id_departamento = $rowd[0] and id_empresa = $row[0] GROUP BY id_departamento, id_empresa, nombre_archivo");
-              if ($cantidadgenerada->num_rows<3) {
           ?>
+               <hr>
                <a class="btn btn-info" href="../reporte_general/intermedio.php?dpto=<?php echo $rowd[0] ?>&empr=<?php echo $row[0] ?>&idcli=<?php echo $id ?>" ><span><i class="fa fa-caret-right" aria-hidden="true"></i> </span><?php echo $rowd[1];?></a><br>
-                <?php echo "Informes Generados: ".$cantidadgenerada->num_rows; ?>
-                <hr>
                <br>
          <?php  
-              }
+              
             }   
           ?>
         </td>
@@ -128,9 +128,9 @@ if(($_SESSION['logueado']) == true){
 
                 while ($rowd = mysqli_fetch_array($departamentos)) { 
                   $cantidadgenerada = $con->query("SELECT COUNT(*),`nombre_archivo` FROM `informe_general` WHERE id_departamento = $rowd[0] and id_empresa = $row[0] GROUP BY id_departamento, id_empresa, nombre_archivo");
-                  if ($cantidadgenerada->num_rows>0) {
+                  if ($cantidadgenerada->num_rows > 0) {
           ?> 
-                  <a download  class="btn btn-success" href="../reporte_general/archivos/<?php echo $_SESSION['nombre']; ?>/<?php echo $row[2] ?>/<?php echo $cantidadgenerada[1]; ?>"><i class="fa fa-download"></i> <?php echo $rowd[1]; ?></a><br><br>
+                  <a download  class="btn btn-success" href="../reporte_general/archivos/<?php echo $_SESSION['nombre']; ?>/<?php echo $row[2] ?>/<?php echo $cantidadgenerada->fetch_assoc()['nombre_archivo']; ?>"><i class="fa fa-download"></i> <?php echo $rowd[1]; ?></a><br><br>
           <?php 
                  }
                }
@@ -144,12 +144,13 @@ if(($_SESSION['logueado']) == true){
   </table>
   <br>
   <hr>
-   <p>Atencion: los informes por departamento y el sociodemografico se descargaran en formato PDF, si desea convertirlos a WORD haga click en el siguiente enlace:</p><a class="btn btn-danger" href="https://www.ilovepdf.com/es/pdf_a_word"><i class="fa fa-external-link" aria-hidden="true"></i><span>I love PDF</span></a>
+   <p>Atencion: los informes por departamento y el sociodemografico se descargaran en formato PDF, si desea convertirlos a WORD haga click en el siguiente enlace:</p><a class="btn btn-danger" target="_blank" href="https://www.ilovepdf.com/es/pdf_a_word"><i class="fa fa-external-link" aria-hidden="true"></i><span>I love PDF</span></a>
    <br>
   <hr>
 </div>
 <script>
   function cambiar_ruta_iframe(id_emp, id_cli) {
+    debugger;
     document.getElementById('iframe_modal').src = '../reporte_sociodemografico/sociodemografico.php?id_emp='+id_emp+'&id_cli='+id_cli;
   }
 </script>

@@ -6,8 +6,8 @@ $sql="SELECT COUNT(*) FROM `cliente` where estatus = 1";
 $resultado =mysqli_fetch_array($con -> query($sql));
 $sql2="SELECT SUM(pines) FROM `compra`";
 $resultado2 =mysqli_fetch_array($con -> query($sql2));
-$sql3="SELECT SUM(precio) FROM `compra`";
-$resultado3 =mysqli_fetch_array($con -> query($sql3));
+$sql3="SELECT SUM(precio * pines) FROM `compra`";
+$resultado3 = mysqli_fetch_array($con -> query($sql3));
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -70,19 +70,17 @@ $resultado3 =mysqli_fetch_array($con -> query($sql3));
           <i class="fas fa-fw fa-cog"></i>
           <span>Compra</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones:</h6>
+          <h6 class="collapse-header">Opciones:</h6>
             <a class="collapse-item" href="registrar.php">Compra cliente nuevo</a>
             <a class="collapse-item" href="comprar.php">Compra cliente existente</a>
+            <a class="collapse-item" href="ventas.php">Ventas</a>
           </div>
         </div>
       </li>
 
-     
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
@@ -148,7 +146,7 @@ $resultado3 =mysqli_fetch_array($con -> query($sql3));
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                  <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['nombre']; ?></span>
-                <img class="img-profile rounded-circle" src="https://img2.freepng.es/20181108/gkx/kisspng-computer-icons-clip-art-portable-network-graphics-government-los-santos-5be4b7db1f0f80.4023802615417159311272.jpg">
+                <img class="img-profile rounded-circle" src="img/user.png">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -177,7 +175,7 @@ $resultado3 =mysqli_fetch_array($con -> query($sql3));
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <div class="text-center">
-            <hr>
+            <br>
               <strong><h2 style="color: #4e73df;">Contabilidad General</h2></strong>
             <hr>
           </div>
@@ -224,7 +222,7 @@ $resultado3 =mysqli_fetch_array($con -> query($sql3));
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Ganancias</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$<?php echo $resultado3[0]; ?></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">$<?php echo number_format($resultado3[0], 0, ',', '.'); ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -247,18 +245,18 @@ $resultado3 =mysqli_fetch_array($con -> query($sql3));
                   <h3 class="m-0 font-weight-bold text-primary">Clientes</h3>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
+                <div class="card-body" style="height: fit-content;">
+                  <div class="chart-area" style="height: auto;">
                      <?php 
                         $consulta = "SELECT * from cliente where estatus=1";
                         $clientes = $con->query($consulta);
                      ?>
-                     <table class="table">
+                     <table class="table" id="example" style="width: 100%;">
                        <thead>
                          <tr>
-                           <th scope="col">ID</th>
                            <th scope="col">Nombre</th>
                            <th scope="col">Correo</th>
+                           <th scope="col">Telefono</th>
                            <th scope="col">Pines comprados</th>
                            <th scope="col">Pines disponibles</th>
                            <th scope="col">Fecha registro</th>
@@ -269,9 +267,9 @@ $resultado3 =mysqli_fetch_array($con -> query($sql3));
                           while ($row = mysqli_fetch_array($clientes)) {
                         ?>
                          <tr>
-                           <td><?php echo $row[0] ?></td>
                            <td><?php echo $row[1] ?></td>
                            <td><?php echo $row[4] ?></td>
+                           <td><?php echo $row[14] ?></td>
                            <td><?php echo $row[6] ?></td>
                            <td><?php echo $row[7] ?></td>
                            <td><?php echo $row[2] ?></td>
@@ -280,7 +278,7 @@ $resultado3 =mysqli_fetch_array($con -> query($sql3));
                           }   
                         ?>
                        </tbody>
-                      </table>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -298,7 +296,7 @@ $resultado3 =mysqli_fetch_array($con -> query($sql3));
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; ICP V2.0 2020</span>
+            <span>Copyright &copy; ICP V2.0 <script>document.write(new Date().getFullYear());</script></span>
           </div>
         </div>
       </footer>
@@ -350,6 +348,35 @@ $resultado3 =mysqli_fetch_array($con -> query($sql3));
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css" />
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#example').DataTable({
+        "order": [[ 0, "asc" ]],
+        "columnDefs": [{
+          "targets": 0
+        }],
+        language: {
+          "sProcessing": "Procesando...",
+          "sLengthMenu": "Mostrar _MENU_ resultados",
+          "sZeroRecords": "No se encontraron resultados",
+          "sEmptyTable": "Ningún dato disponible en esta tabla",
+          "sInfo": "Mostrando resultados _START_-_END_ de  _TOTAL_",
+          "sInfoEmpty": "Mostrando resultados del 0 al 0 de un total de 0 registros",
+          "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+          "sSearch": "Buscar:",
+          "sLoadingRecords": "Cargando...",
+          "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+          },
+        }
+      });
+    });
+  </script>
 
 </body>
 

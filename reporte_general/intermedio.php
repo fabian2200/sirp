@@ -39,30 +39,30 @@
 			<hr>
 			<button onclick="GenerarIntraAB()" class="btn btn-success">Generar Reporte</button>
 		</div>	
-	<?
+	<?php
 	}else{
 	    if ($resultado[0]>0) {
 	        $filename = "general_intra_A_".$nombredepartamento2."_".$iddepartamento.".pdf";
 	          
 	        $con->query("INSERT into informe_general (id_empresa,id_cliente,id_departamento,fecha,nombre_archivo) values ($idempresa,$idcliente,$iddepartamento,'$fecha','$filename')");
-	    ?>	
+	?>	
 			<div class="container text-center" style="padding-top: 150px; padding-bottom: 150px">
 				<h3>Este departamento solo cuenta con empleados intra-A</h3>
 				<hr>
 				<button onclick="GenerarIntraA()" class="btn btn-success">Generar Reporte</button>
 			</div>	
-		<?
+	<?php
 	    }else{
 	          	$filename = "general_intra_B_".$nombredepartamento2."_".$iddepartamento.".pdf";
 	          
 	          	$con->query("INSERT into informe_general (id_empresa,id_cliente,id_departamento,fecha,nombre_archivo) values ($idempresa,$idcliente,$iddepartamento,'$fecha','$filename')");
-	    ?>	
+	?>	
 			<div class="container text-center" style="padding-top: 150px; padding-bottom: 150px">
 				<h3>Este departamento solo cuenta con empleados intra-B</h3>
 				<hr>
 				<button onclick="GenerarIntraB()" class="btn btn-success">Generar Reporte</button>
 			</div>	
-		<?
+	<?php
 	    }
 	 }
 	?>

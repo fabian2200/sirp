@@ -21,26 +21,31 @@ if(($_SESSION['logueado']) == true){
 
   </head>
 
-<body>
+<body style="padding: 20px;">
 <div class="text-center">
-    <hr>
+  <div class="container">
+    <br>
     <div class="text-center"><h2>Estado de los cuestionarios</h2></div>
-    <hr>
     <div class="text-center">
       <h2><strong><?php echo  $resultado[2]; ?></strong></h2>
     </div>
-    <div class="alert alert-danger" role="alert">
-     <strong>Atencion! </strong> el icono de color <strong>rojo</strong> indica que las respuestas del cuestionario no se han digitado, y para hacerlo, debe de darle click.
-    </div>
     <hr>
     <div class="container text-center">
-       <a href="registrar_empleado.php?proceso=<?php echo $idempresa ?>" class="btn btn-success"><i class="fa fa-user-plus" aria-hidden="true"></i><span> Registrar empleado</span></a>
-        
+      <a href="registrar_empleado.php?proceso=<?php echo $idempresa ?>" class="btn btn-warning"><i class="fa fa-user-plus" aria-hidden="true"></i><span> Registrar empleado</span></a>
+      <a href="empresas.php" class="btn btn-success"><i class="fa fa-file-excel-o" aria-hidden="true"></i><span> Cargar empleados</span></a>
+    </div>
+    <br>
+    <div class="alert alert-info" role="alert">
+      <strong>Para descargar el formato excel de empleados, haga click en el siguiente enlace:</strong> <a href="empleados.xlsx"><i class="fa fa-file-excel-o" aria-hidden="true"></i><span> Descargar</span></a>
     </div>
     <hr>
     <br>
 </div>
 <div class="container">
+  <div class="alert alert-danger" role="alert">
+    <strong>Atencion! </strong> el icono de color <strong>rojo</strong> indica que las respuestas del cuestionario no se han digitado, y para hacerlo, debe de darle click.
+  </div>
+  <br>
 <div class="table-responsive">
     <table id="example"  data-order='[[ 5, "asc" ]]' data-page-length='25'
           class="table table-sm table-striped table-hover table-bordered">

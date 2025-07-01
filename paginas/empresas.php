@@ -24,7 +24,7 @@ if(($_SESSION['logueado']) == true){
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
-<body>
+<body style="padding: 20px;">
 <?php 
   if ($resultado[0] == 0 ) { 
 ?>
@@ -86,7 +86,8 @@ if(($_SESSION['logueado']) == true){
 ?> 
 
 <div class="text-center">
-  <h2>Contbilidad general</h2>
+  <h2>Contabilidad general</h2>
+  <p>En esta sección podrás ver la contabilidad general de tus empresas, con los pines que has comprado y los pines que has utilizado.</p>
 </div>
  <div class="row">
 

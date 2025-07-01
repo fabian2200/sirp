@@ -155,12 +155,12 @@ if(($_SESSION['logueado']) == true){
     	    <div class="form-group col-md-6">
       			<label for="Estrato">Estrato</label>
       			<select id="Estrato" name="Estrato"  class="form-control" required>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
+              <option value="1">Estrato 1</option>
+              <option value="2">Estrato 2</option>
+              <option value="3">Estrato 3</option>
+              <option value="4">Estrato 4</option>
+              <option value="5">Estrato 5</option>
+              <option value="6">Estrato 6</option>
               <option value="7">Finca</option>
               <option value="8">No sè</option>
             </select>
@@ -251,7 +251,7 @@ if(($_SESSION['logueado']) == true){
  		  <div class="form-row">
  		  	<div class="form-group col-md-4">
       			<label for="Tipocontrato">Tipo de Contrato </label>
-      			<select id="Tipocontrato" name="Tipocontrato"  class="form-control" required>
+      		<select id="Tipocontrato" name="Tipocontrato"  class="form-control" required>
               <option value="1">Temporal de menos de 1 año</option>
               <option value="2">Temporal de 1 año o más</option>
               <option value="3">Término indefinido</option>

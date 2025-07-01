@@ -1,65 +1,221 @@
-# [Start Bootstrap - SB Admin 2](https://startbootstrap.com/themes/sb-admin-2/)
+# SIRP V.2 - Sistema de Información de Riesgos Psicosociales
 
-[SB Admin 2](https://startbootstrap.com/themes/sb-admin-2/) is an open source admin dashboard theme for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
+## 📋 Descripción
 
-For the legacy Bootstrap 3 version of this theme, you can view the [last stable release](https://github.com/StartBootstrap/startbootstrap-sb-admin-2/releases/tag/v3.3.7%2B1) of SB Admin 2 for Bootstrap 3.
+SIRP V.2 es un sistema web desarrollado en PHP que permite la gestión y evaluación de riesgos psicosociales en el entorno laboral. El sistema está diseñado para administradores y clientes (empresas) que necesitan evaluar y gestionar los factores de riesgo psicosocial en sus organizaciones.
 
-## Preview
+## 🎯 Características Principales
 
-[![SB Admin 2 Preview](https://startbootstrap.com/assets/img/screenshots/themes/sb-admin-2.png)](https://startbootstrap.github.io/startbootstrap-sb-admin-2/)
+### Para Administradores
+- **Gestión de Contabilidad**: Control de ventas, compras y clientes
+- **Registro de Clientes**: Creación y gestión de cuentas de clientes
+- **Sistema de Ventas**: Gestión de pines y licencias
+- **Reportes Financieros**: Seguimiento de ingresos y transacciones
 
-**[Launch Live Preview](https://startbootstrap.github.io/startbootstrap-sb-admin-2/)**
+### Para Clientes (Empresas)
+- **Gestión de Empresas**: Registro y administración de empresas
+- **Evaluación de Riesgos Psicosociales**: Cuestionarios especializados
+- **Gestión de Empleados**: Registro y seguimiento del personal
+- **Generación de Informes**: Reportes detallados en diferentes formatos
 
-## Status
+## 🏗️ Arquitectura del Sistema
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/StartBootstrap/startbootstrap-sb-admin-2/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-sb-admin-2.svg)](https://www.npmjs.com/package/startbootstrap-sb-admin-2)
-[![Build Status](https://travis-ci.org/StartBootstrap/startbootstrap-sb-admin-2.svg?branch=master)](https://travis-ci.org/StartBootstrap/startbootstrap-sb-admin-2)
-[![dependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-sb-admin-2/status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-sb-admin-2)
-[![devDependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-sb-admin-2/dev-status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-sb-admin-2?type=dev)
+### Tecnologías Utilizadas
+- **Backend**: PHP 7.x
+- **Base de Datos**: MySQL
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Framework CSS**: Bootstrap 4.5.0
+- **Iconos**: Font Awesome 5.13.1
+- **Gráficos**: Chart.js 2.9.3
+- **Tablas**: DataTables 1.10.21
+- **Build Tool**: Gulp 4.0.2
 
-## Download and Installation
+### Estructura del Proyecto
+```
+sirp/
+├── acciones/                 # Scripts de procesamiento
+├── cuestionarios/           # Formularios de evaluación
+├── css/                     # Estilos CSS
+├── js/                      # JavaScript
+├── img/                     # Imágenes
+├── paginas/                 # Páginas del sistema
+├── reportes/                # Generación de reportes
+├── vendor/                  # Dependencias
+├── administrador.php        # Panel de administrador
+├── cliente.php             # Panel de cliente
+├── login.php               # Autenticación
+├── conexion.php            # Configuración de BD
+└── README.md               # Este archivo
+```
 
-To begin using this template, choose one of the following options to get started:
+## 🚀 Instalación
 
-* [Download the latest release on Start Bootstrap](https://startbootstrap.com/themes/sb-admin-2/)
-* Install via npm: `npm i startbootstrap-sb-admin-2`
-* Clone the repo: `git clone https://github.com/StartBootstrap/startbootstrap-sb-admin-2.git`
-* [Fork, Clone, or Download on GitHub](https://github.com/StartBootstrap/startbootstrap-sb-admin-2)
+### Requisitos Previos
+- Servidor web (Apache/Nginx)
+- PHP 7.0 o superior
+- MySQL 5.7 o superior
+- Composer (opcional, para dependencias)
 
-## Usage
+### Pasos de Instalación
 
-After installation, run `npm install` and then run `npm start` which will open up a preview of the template in your default browser, watch for changes to core template files, and live reload the browser when changes are saved. You can view the `gulpfile.js` to see which tasks are included with the dev environment.
+1. **Clonar el repositorio**
+   ```bash
+   git clone [URL_DEL_REPOSITORIO]
+   cd sirp
+   ```
 
-### Gulp Tasks
+2. **Configurar la base de datos**
+   - Crear una base de datos MySQL llamada `sirp`
+   - Importar el esquema de la base de datos (archivo SQL)
 
-* `gulp` the default task that builds everything
-* `gulp watch` browserSync opens the project in your default browser and live reloads when changes are made
-* `gulp css` compiles SCSS files into CSS and minifies the compiled CSS
-* `gulp js` minifies the themes JS file
-* `gulp vendor` copies dependencies from node_modules to the vendor directory
+3. **Configurar la conexión**
+   - Editar `conexion.php` con los datos de tu base de datos:
+   ```php
+   $host_db = "localhost";
+   $user_db = "tu_usuario";
+   $pass_db = "tu_contraseña";
+   $db_name = "sirp";
+   ```
 
-You must have npm installed globally in order to use this build environment. This theme was built using node v11.6.0 and the Gulp CLI v2.0.1. If Gulp is not running properly after running `npm install`, you may need to update node and/or the Gulp CLI locally.
+4. **Instalar dependencias (opcional)**
+   ```bash
+   npm install
+   ```
 
-## Bugs and Issues
+5. **Configurar el servidor web**
+   - Asegurar que el directorio sea accesible desde el servidor web
+   - Configurar permisos de escritura en directorios necesarios
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/StartBootstrap/startbootstrap-sb-admin-2/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](https://startbootstrap.com/themes/sb-admin-2/).
+## 🔧 Configuración
 
-## About
+### Variables de Entorno
+El sistema utiliza las siguientes configuraciones por defecto:
+- **Host de BD**: localhost
+- **Usuario de BD**: root
+- **Contraseña de BD**: root
+- **Nombre de BD**: sirp
 
-Start Bootstrap is an open source library of free Bootstrap templates and themes. All of the free templates and themes on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
+### Permisos de Archivos
+```bash
+chmod 755 -R sirp/
+chmod 777 -R sirp/reportes/
+chmod 777 -R sirp/img/
+```
 
-* <https://startbootstrap.com>
-* <https://twitter.com/SBootstrap>
+## 👥 Tipos de Usuario
 
-Start Bootstrap was created by and is maintained by **[David Miller](http://davidmiller.io/)**.
+### Administrador
+- Acceso completo al sistema
+- Gestión de clientes y ventas
+- Reportes financieros
+- Configuración del sistema
 
-* <http://davidmiller.io>
-* <https://twitter.com/davidmillerskt>
-* <https://github.com/davidtmiller>
+### Cliente
+- Gestión de empresas propias
+- Evaluación de riesgos psicosociales
+- Generación de informes
+- Gestión de empleados
 
-Start Bootstrap is based on the [Bootstrap](https://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
+## 📊 Módulos del Sistema
 
-## Copyright and License
+### 1. Gestión de Clientes
+- Registro de nuevos clientes
+- Actualización de información
+- Control de acceso y permisos
 
-Copyright 2013-2020 Start Bootstrap LLC. Code released under the [MIT](https://github.com/StartBootstrap/startbootstrap-resume/blob/gh-pages/LICENSE) license.
+### 2. Evaluación de Riesgos Psicosociales
+- **Cuestionario Intralaboral A**: Evaluación de factores internos
+- **Cuestionario Intralaboral B**: Evaluación de factores internos (versión B)
+- **Cuestionario Extralaboral**: Evaluación de factores externos
+- **Cuestionario de Estrés**: Evaluación específica de estrés
+
+### 3. Gestión de Empresas
+- Registro de empresas
+- Configuración de parámetros
+- Gestión de empleados
+
+### 4. Generación de Reportes
+- Informes individuales
+- Informes por empresa
+- Reportes sociodemográficos
+- Exportación a PDF y Excel
+
+## 🔐 Seguridad
+
+### Autenticación
+- Sistema de login con validación de sesiones
+- Encriptación de contraseñas con MD5
+- Control de acceso basado en roles
+
+### Validación de Datos
+- Sanitización de entradas
+- Validación de formularios
+- Protección contra inyección SQL básica
+
+## 📈 Reportes Disponibles
+
+1. **Informe General**: Resumen completo de evaluaciones
+2. **Informe Individual**: Resultados por empleado
+3. **Informe Sociodemográfico**: Análisis por características demográficas
+4. **Informe Tipo Tabla**: Datos en formato tabular
+
+## 🛠️ Desarrollo
+
+### Scripts Disponibles
+```bash
+# Iniciar el servidor de desarrollo
+npm start
+
+# Compilar assets
+gulp build
+
+# Observar cambios
+gulp watch
+```
+
+### Estructura de Base de Datos
+Las principales tablas incluyen:
+- `cliente`: Información de clientes
+- `empresa`: Datos de empresas
+- `empleado`: Información de empleados
+- `compra`: Registro de transacciones
+- `evaluacion_*`: Resultados de cuestionarios
+
+## 🐛 Solución de Problemas
+
+### Errores Comunes
+1. **Error de conexión a BD**: Verificar configuración en `conexion.php`
+2. **Permisos denegados**: Ajustar permisos de archivos y directorios
+3. **Sesión expirada**: Verificar configuración de PHP session
+
+### Logs
+- Los errores se registran en `error_log`
+- Revisar logs del servidor web para problemas de configuración
+
+## 📝 Licencia
+
+Este proyecto utiliza la licencia MIT. Ver archivo LICENSE para más detalles.
+
+## 🤝 Contribución
+
+1. Fork el proyecto
+2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abrir un Pull Request
+
+## 📞 Soporte
+
+Para soporte técnico o consultas:
+- Revisar la documentación del sistema
+- Consultar los logs de error
+- Contactar al equipo de desarrollo
+
+## 🔄 Versiones
+
+- **v2.0**: Versión actual con mejoras en interfaz y funcionalidades
+- **v1.0**: Versión inicial del sistema
+
+---
+
+**Desarrollado con ❤️ para la gestión de riesgos psicosociales**
