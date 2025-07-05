@@ -21,8 +21,5 @@ $con->query("DELETE from empleado where idus=$idempleado");
 //eliminar las calificaciones
 $con->query("DELETE FROM `calificacion` WHERE `idempleado` = $idempleado");
 
- echo "<script>
-               alert('Se eliminara al empleado con la ID : $idempleado, de la empresa: $idempresa');
-               window.location= ' ../paginas/ver_empleados.php?idempr=$idempresa'
-           </script>";
+ echo json_encode(array("success" => true, "message" => "Empleado eliminado correctamente"));
 ?>

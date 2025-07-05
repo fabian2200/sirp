@@ -16,13 +16,28 @@ if(($_SESSION['logueado']) == true){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      input[type="radio"] {
+        scale: 1.5;
+      }  
+
+      tr td:nth-child(n+3) {
+        text-align: center !important;
+      }
+
+      tr th:nth-child(n+3) {
+        text-align: center !important;
+      }
+    </style>
 </head>
 <body>
    
 <div class="container">
-  <h2>Cuestionario Extralaboral</h2>
+  <h2 style="color: #224abe !important; font-weight: bold; width: 100%; text-align: center;">Cuestionario Extralaboral</h2>
   <hr>
-  <form method="POST" action="../acciones/guardar_extra.php?idem=<?php echo $idempl ?>&idemp=<?php echo $idempr ?>">
+  <form method="POST" id="form_extralaboral">
     <table class="table table-striped">
     <thead>
       <tr>
@@ -319,12 +334,132 @@ if(($_SESSION['logueado']) == true){
    </table>
    <hr>
    <div class="text-center">
-     <button type="submit" class="btn btn-success"><span><i class="fa fa-arrow-right" aria-hidden="true"></i></span> Guardar y continuar</button>
+     <button style="font-size: 1.9rem;" type="button" id="btn_guardar" class="btn btn-success"><span><i class="fa fa-arrow-right" aria-hidden="true"></i></span> Guardar y continuar</button>
    </div>      
   </form> 
 </div>
 <br><br>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#btn_guardar").click(function(){
+      if(validar_formulario()){ 
+        $.ajax({
+          url: "../acciones/guardar_extra.php?idem=<?php echo $idempl ?>&idemp=<?php echo $idempr ?>",
+          type: "POST",
+          data: $("#form_extralaboral").serialize(),
+          beforeSend: function(){
+            Swal.fire({
+              position: "bottom",
+              title: "Guardando...",
+              text: "Espere un momento por favor",
+              icon: "info",
+              showConfirmButton: false,
+              allowOutsideClick: false,
+              didOpen: function(){
+                Swal.showLoading();
+              }
+            });
+          },
+          success: function(response){
+            var data = JSON.parse(response);
+            if(data.status == "success"){
+              generar_informe(data.url);
+            }else{
+              Swal.fire({
+                position: "bottom",
+                text: data.message, 
+                icon: "error",
+                showConfirmButton: true,
+                allowOutsideClick: false,
+              });
+            }
+          },  
+          error: function(xhr, status, error){
+            Swal.fire({
+              position: "bottom",
+              text: "Ha ocurrido un error al guardar el test de extralaboral",
+              icon: "error",
+              showConfirmButton: true,
+              allowOutsideClick: false,
+            });
+          }
+        });
+      }else{
+        Swal.fire({
+          position: "bottom",
+          text: "Por favor, responda todas las preguntas antes de continuar",
+          icon: "error",
+          showConfirmButton: true,
+          allowOutsideClick: false,
+        });
+      }
+    });
+  });
+
+  function generar_informe(url){
+    $.ajax({
+      url: url,
+      type: "GET",
+      beforeSend: function(){
+        Swal.fire({
+          position: "bottom",
+          title: "Generando informe Extralaboral, por favor espere...",
+          icon: "info",
+          showConfirmButton: false,
+          allowOutsideClick: false,
+          didOpen: function(){
+            Swal.showLoading();
+          }
+        });
+      },
+      success: function(response){
+        Swal.fire({
+          position: "bottom",
+          title: "Informe Extralaboral generado correctamente",
+          icon: "success",
+          showConfirmButton: true,
+          allowOutsideClick: false,
+          willClose: function(){
+            window.location.href = "../paginas/ver_empleados.php?idempr=<?php echo $idempr ?>";
+          }
+        });
+      },
+      error: function(xhr, status, error){
+        Swal.fire({
+          position: "bottom",
+          title: "Error al generar el informe Extralaboral",
+          icon: "error",
+          showConfirmButton: true,
+          allowOutsideClick: false,
+        });
+      }
+    });
+  }
+
+  function validar_formulario(){
+    const totalGrupos = new Set();
+    const radiosMarcados = new Set(); 
+
+    // Recorremos todos los radio buttons
+    $("#form_extralaboral input[type=radio]").each(function() {
+      const nombre = $(this).attr("name");
+      totalGrupos.add(nombre);
+      if ($(this).is(":checked")) {
+        radiosMarcados.add(nombre);
+      }
+    });
+
+    if (totalGrupos.size !== radiosMarcados.size) {
+      return false;
+    }else{
+      return true;
+    }
+  }
+</script>
+
 </html>
 <?php
 }else{  

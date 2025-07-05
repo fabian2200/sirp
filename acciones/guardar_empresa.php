@@ -13,26 +13,19 @@
     $sql="INSERT INTO empresa (idcl,empresa,nrousuarios,fecha,token) values ($id,'$nombre',$empleados,'$fecha','$token')";
     $resultado = $con -> query($sql);
     
-    if($resultado)
-    {
-     echo "<script>
-               alert('datos guardados correctamente!');
-               window.location= '../paginas/empresas.php'
-           </script>";
-           $resultado2 = $con -> query("UPDATE `cliente` set pinesdisp = pinesdisp-$empleados WHERE idcl = $id");
-    }
-    else
-    {
-          echo "<script>
-                       alert('ha ocurrido un error!');
-                       window.location= '../paginas/empresas.php'
-                </script>";
+    if($resultado){
+       $resultado2 = $con -> query("UPDATE `cliente` set pinesdisp = pinesdisp-$empleados WHERE idcl = $id");
+       echo json_encode(array(
+              "status" => "success", 
+              "message" => "Empresa registrada correctamente",
+              "href" => "../paginas/empresas.php"
+       ));
+           
+    }else{
+          echo json_encode(array("status" => "error", "message" => "Ha ocurrido un error"));
     }
    }else{
-         echo "<script>
-                       alert('no cuenta con esa cantidad de pines!');
-                       window.location= '../paginas/empresas.php'
-                </script>";
+         echo json_encode(array("status" => "error", "message" => "No cuenta con esa cantidad de pines, puede crear una empresa con ".$resultado2[0]." empleados"));
    }
     
     

@@ -10,26 +10,36 @@ if(($_SESSION['logueado']) == true){
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  	<title>Registro de Empleado</title>
 	 <!-- Custom fonts for this template-->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
-  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="../css/radio.css" rel="stylesheet">
-  <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+	<!-- Custom styles for this template-->
+	<link href="../css/sb-admin-2.min.css" rel="stylesheet">
+	<link href="../css/radio.css" rel="stylesheet">
+	<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<style>
+		#btn_volver{
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			margin-top: 10px;
+			margin-right: 10px;
+			z-index: 1000;
+		}
+	</style>
 </head>
 <body>
- <div class="container-fluid">
-    <hr>
-     <div class="form-row text-center"><h2>Registro de Empleado</h2></div>
-          <hr>
-         <form action="../acciones/guardar_empleado.php" method="POST">
+ <div class="container-fluid" style="background-color:rgb(255, 255, 255); padding: 40px; border-radius: 10px;">
+	<button id="btn_volver" onclick="window.location.href='ver_empleados.php?idempr=<?php echo $idempresa; ?>'" class="btn btn-danger">Volver <i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+ 	<div class="form-row text-center"><h2 style="color: #224abe !important; font-weight: bold; width: 100%; text-align: center;">Registro de Empleado</h2></div>
+	<hr>
+	<form method="POST" id="form_guardar">
           <div class="form-row">
             <div class="form-group col-md-6">
              <input type="hidden" class="form-control" id="Idcl"  name="Idcl" value="<?php echo $id ?>" required>
@@ -41,11 +51,11 @@ if(($_SESSION['logueado']) == true){
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="Areatrabajo">Area De Trabajo</label>
-      		  <select name="Areatrabajo" class = "form-control" required>
+      		  <select style="text-transform: capitalize;" name="Areatrabajo" id="Areatrabajo" class = "form-control" required>
            		<?php  
            			while ($row = mysqli_fetch_array($resultado)) {      			
            		?>
-           		<option value="<?php echo $row[0]; ?>" ><?php echo $row[1]; ?></option>
+           			<option style="text-transform: capitalize;" value="<?php echo $row[0]; ?>" ><?php echo $row[1]; ?></option>
            		<?php 
 					}
            		 ?>
@@ -57,22 +67,26 @@ if(($_SESSION['logueado']) == true){
             </div>
           </div>
            <div class="form-row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
               <label for="Nombre">Nombre completo</label>
              <input type="text" class="form-control" id="Nombre"  name="Nombre"  required>
+            </div>     
+            <div class="form-group col-md-6">
+              <label for="correo">Correo</label>
+             <input type="email" class="form-control" id="Correo"  name="Correo"  required>
             </div>     
           </div>
           <div class="form-row">
           <div class="form-group col-md-6">
       		<label for="Sexo">Sexo</label>
-      		<select name="Sexo" class = "form-control" required>
+      		<select name="Sexo" id="Sexo" class = "form-control" required>
            		<option value="1">Femenino</option>
            		<option value="2">Masculino</option>
       		</select>
     	  </div>
     	  <div class="form-group col-md-6">
   			<label for="Estadocivil">Estado civil</label>
-       		<select id="Estadocivil" name="Estadocivil"  class="form-control">
+       		<select id="Estadocivil" name="Estadocivil"  class="form-control" required>
        			<option value="1">Soltero(a)</option>
        			<option value="2">Casado(a)</option>
        			<option value="3">Unión libre</option>
@@ -85,7 +99,7 @@ if(($_SESSION['logueado']) == true){
  		  <div class="form-row">
  		  	<div class="form-group col-md-6">
       			<label for="Nacimiento">Fecha de Nacimiento</label>
-      			<input type="date" name="Nacimiento" class="form-control">
+      			<input type="date" id="Nacimiento" name="Nacimiento" required class="form-control">
     	    </div>
     	    <div class="form-group col-md-6">
       			<label for="Estudios">Estudios</label>
@@ -144,13 +158,13 @@ if(($_SESSION['logueado']) == true){
     	    </div>
     	    <div class="form-group col-md-6">
       			<label for="Ocupacion">Ocupacion</label>
-      			<input type="text" name="Ocupacion" class="form-control">
+      			<input type="text" id="Ocupacion" name="Ocupacion" class="form-control">
     	    </div>
  		  </div>
  		  <div class="form-row">
  		  	<div class="form-group col-md-6">
       			<label for="Ciudad">Ciudad Residencia</label>
-      			<input type="text" name="Ciudad" class="form-control">
+      			<input type="text" id="Ciudad" name="Ciudad" class="form-control">
     	    </div>
     	    <div class="form-group col-md-6">
       			<label for="Estrato">Estrato</label>
@@ -177,7 +191,7 @@ if(($_SESSION['logueado']) == true){
     	    </div>
     	    <div class="form-group col-md-6">
       			<label for="Cargafamiliar">Carga familiar</label>
-      			<input type="number" name="Cargafamiliar" class="form-control">
+      			<input type="number" id="Cargafamiliar" name="Cargafamiliar" class="form-control">
     	    </div>
  		  </div>
  		  <div class="form-row">
@@ -220,17 +234,17 @@ if(($_SESSION['logueado']) == true){
     	    </div>
     	    <div class="form-group col-md-6">
       			<label for="Ciudadtrabajo">Ciudad Trabajo</label>
-      			<input type="text" name="Ciudadtrabajo" class="form-control">
+      			<input type="text" id="Ciudadtrabajo" name="Ciudadtrabajo" class="form-control">
     	    </div>
  		  </div>
  		  <div class="form-row">
  		  	<div class="form-group col-md-6">
       			<label for="Cargotrabajo">Cargo Trabajo</label>
-      			<input type="text" name="Cargotrabajo" class="form-control">
+      			<input type="text" id="Cargotrabajo" name="Cargotrabajo" class="form-control">
     	    </div>
     	    <div class="form-group col-md-6">
       			<label for="Aniostrabajo">Años de trabajo</label>
-      			<input type="number" name="Aniostrabajo" class="form-control">
+      			<input type="number" id="Aniostrabajo" name="Aniostrabajo" class="form-control">
     	    </div>
  		  </div>
  		  <div class="form-row">
@@ -245,7 +259,7 @@ if(($_SESSION['logueado']) == true){
     	    </div>
     	    <div class="form-group col-md-6">
       			<label for="AniosCargo">Años de Cargo</label>
-      			<input type="number" name="AniosCargo" class="form-control">
+      			<input type="number" id="AniosCargo" name="AniosCargo" class="form-control">
     	    </div>
  		  </div>
  		  <div class="form-row">
@@ -262,7 +276,7 @@ if(($_SESSION['logueado']) == true){
     	    </div>
     	    <div class="form-group col-md-4">
       			<label for="Hotrastrab">Horas Trab. Diarias</label>
-      			<input type="number" name="Hotrastrab" class="form-control">
+      			<input type="number" id="Hotrastrab" name="Hotrastrab" class="form-control">
     	    </div>
     	    <div class="form-group col-md-4">
       			<label for="Tiposalario">Tipo de salario</label>
@@ -274,10 +288,11 @@ if(($_SESSION['logueado']) == true){
     	    </div>
  		  </div>
         <div class="form-row " style="text-align: center">
-            <section style="text-align: center">
-              <br><br>
-               <h2>Seleccione los tipos de Test que le realizara a este empleado(minimo uno)</h2>
+            <section style="text-align: center" class="w-100">
+              <br>
+               <h2>Seleccione el tipo de test que le realizara a este empleado</h2>
                <hr>
+			   <div class="col-md-3"></div>
               <div class="col-md-3">
                  <input type="radio" id="control_01" name="select" value="1" required>
                     <label for="control_01" class="control">
@@ -292,25 +307,15 @@ if(($_SESSION['logueado']) == true){
                       <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
                     </label>
               </div>
-              <div class="col-md-3">
-                 <input type="radio" id="control_03" name="select2"  value="1" >
-                    <label for="control_03" class="control">
-                      <h2>Estres</h2>
-                      <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
-                    </label>
-              </div>
-              <div class="col-md-3">
-                 <input type="radio" id="control_04"  name="select3" value="1" >
-                    <label for="control_04" class="control">
-                      <h2>Extralaboral</h2>
-                      <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
-                    </label>
-              </div>
+			  <div class="col-md-3"></div>
             </section>
         </div>
         <hr>
-        <div class="text-center"><button type="submit" class="btn btn-success">Guardar</button></div>  
-      </form>
+        <div class="text-center d-flex justify-content-center" style="gap: 20px;">
+			<button id="btn_guardar" style="width: 40%; font-size: 1.7em;" onclick="guardarEmpleado()" type="button" class="btn btn-success">Guardar <i class="fa fa-user-plus" aria-hidden="true"></i></button>
+			<button style="width: 40%; font-size: 1.7em;" type="button" class="btn btn-danger" onclick="history.back()">Cancelar <i class="fa fa-user-times" aria-hidden="true"></i></button>
+		</div>  
+    </form>
   </div>  
   <br> 
 
@@ -341,7 +346,101 @@ if(($_SESSION['logueado']) == true){
   </div> 
   <!-- Modal --> 
 </body>
-</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	function guardarEmpleado(){
+		if(validarFormulario()){
+			$.ajax({
+				url: "../acciones/guardar_empleado.php",
+				type: "POST",
+				data: $("#form_guardar").serialize(),
+				beforeSend: function(){
+					$("#btn_guardar").prop("disabled", true);
+					Swal.fire({
+						position: "bottom",
+						title: "Guardando...",
+						text: "Espere un momento por favor",
+						icon: "info",
+						allowOutsideClick: false,
+						didOpen: function(){
+							Swal.showLoading();
+						}
+					});
+				},
+				success: function(response){
+					var data = JSON.parse(response);
+					if(data.status == "success"){
+						Swal.fire({
+							position: "bottom",
+							title: data.message,
+							icon: "success",
+							confirmButtonText: "Aceptar",
+							didClose: function(){
+								window.location.href = "ver_empleados.php?idempr=" + <?php echo $idempresa; ?>;
+							}
+						});
+					}else{
+						Swal.fire({
+							position: "bottom",
+							title: data.message,
+							icon: "error",
+							confirmButtonText: "Aceptar",
+						});
+					}
+				},
+				error: function(xhr, status, error){
+					Swal.fire({
+						position: "bottom",
+						title: "Error al guardar el empleado",
+						icon: "error",
+						confirmButtonText: "Aceptar",
+					});
+				}
+			});
+		}else{
+			Swal.fire({
+				position: "bottom",
+				title: "Error",
+				text: "Por favor complete todos los campos",
+				icon: "error",
+				confirmButtonText: "Aceptar",
+			});
+		}
+	}
+
+	function validarFormulario(){
+		var form = $("#form_guardar");
+		var nombre = form.find("#Nombre").val();
+		var correo = form.find("#Correo").val();
+		var sexo = form.find("#Sexo").val();
+		var estadocivil = form.find("#Estadocivil").val();
+		var nacimiento = form.find("#Nacimiento").val();
+		var estudios = form.find("#Estudios").val();
+		var departamento = form.find("#Departamento").val();
+		var ocupacion = form.find("#Ocupacion").val();
+		var ciudad = form.find("#Ciudad").val();
+		var estrato = form.find("#Estrato").val();
+		var vivienda = form.find("#Vivienda").val();
+		var cargafamiliar = form.find("#Cargafamiliar").val();
+		var departamento2 = form.find("#Departamento2").val();
+		var ciudadtrabajo = form.find("#Ciudadtrabajo").val();
+		var cargotrabajo = form.find("#Cargotrabajo").val();
+		var aniostrabajo = form.find("#Aniostrabajo").val();
+		var tipocargo = form.find("#Tipocargo").val();
+		var anioscargo = form.find("#AniosCargo").val();
+		var tipocontrato = form.find("#Tipocontrato").val();
+		var hotrastrab = form.find("#Hotrastrab").val();
+		var tiposalario = form.find("#Tiposalario").val();
+		var tipo_test = $("#control_01").is(":checked") || $("#control_02").is(":checked");
+		var area_trabajo = form.find("#Areatrabajo").val();
+		
+		if(nombre == "" || correo == "" || sexo == "" || estadocivil == "" || nacimiento == "" || estudios == "" || departamento == "" || ocupacion == "" || ciudad == "" || estrato == "" || vivienda == "" || cargafamiliar == "" || departamento2 == "" || ciudadtrabajo == "" || cargotrabajo == "" || aniostrabajo == "" || tipocargo == "" || anioscargo == "" || tipocontrato == "" || hotrastrab == "" || tiposalario == "" || !tipo_test || area_trabajo == ""){
+			return false;
+		}else{
+			return true;
+		}
+	}
+</script>
 </html>
 <?php
 }else{  

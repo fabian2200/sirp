@@ -15,12 +15,26 @@ if(($_SESSION['logueado']) == true){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+
+    <style>
+      input[type="radio"] {
+        scale: 1.5;
+      }  
+
+      tr td:nth-child(n+3) {
+        text-align: center !important;
+      }
+
+      tr th:nth-child(n+3) {
+        text-align: center !important;
+      }
+    </style>
 </head>
 <body>
    
 <div class="container">
-  <h2>1ª parte formulario Intra-B</h2>
-  <p>selecciones una opcion para cada pregunta:</p>  
+  <h2 style="color: #224abe !important; font-weight: bold; width: 100%; text-align: center;">Cuestionario Intralaboral Forma B</h2>
+  <hr>
   <form method="POST" action="../acciones/guardar_intrab_p1_2.php">
     <table class="table table-striped">
     <thead>
@@ -382,7 +396,7 @@ if(($_SESSION['logueado']) == true){
    <input type="hidden" name="idempleado" value="<?php echo $idempl ?>">
    <hr>
    <div class="text-center">
-     <button type="submit" class="btn btn-success"><span><i class="fa fa-arrow-right" aria-hidden="true"></i></span> Guardar y continuar</button>
+     <button style="font-size: 1.9rem;" type="submit" class="btn btn-success"><span><i class="fa fa-arrow-right" aria-hidden="true"></i></span> Guardar y continuar</button>
    </div>      
   </form> 
 </div>

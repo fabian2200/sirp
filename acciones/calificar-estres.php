@@ -37,7 +37,6 @@ if($totaltrans>=$factor[4] && $totaltrans<=$factor[5]){
 }
 
 //insertar total de estres
-echo $iddepartamento;
 $con -> query("INSERT into calificacion (idempresa,idempleado,iddimension,puntajebruto,puntajetransformado,nivelriesgo,tipo_examen,iddepartamento) values ($idempresa,$idempleado,54,$totalbruto,$totaltrans,'$riesgototal',4,$iddepartamento)");
 }
 

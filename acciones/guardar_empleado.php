@@ -24,11 +24,12 @@
   $Hotrastrab = @$_POST['Hotrastrab'];
   $Tiposalario = @$_POST['Tiposalario'];
   $Intra  = @$_POST['select'];
-  $Estres = @$_POST['select2'];
-  $Extralaboral = @$_POST['select3'];
+  $Estres = 1;
+  $Extralaboral = 1;
   $Nombreempresa ="";
   $Fecharegistro  = date("Y-m-d");
   $Fechaaplicacion  = date("Y-m-d");
+  $Correo = @$_POST['Correo'];
 
   if ($Intra == 1) {
   	 $IntraA = 1;
@@ -37,14 +38,8 @@
   	 $IntraA = 0;
   	 $IntraB = 1;
   } 
+  
 
-  if (empty($Estres)) {
-    $Estres = 0;
-  }
-
-  if (empty($Extralaboral)) {
-    $Extralaboral = 0;
-  }
   $sql="SELECT nrousuarios,pinesusados,empresa FROM `empresa` WHERE idem = $Idem";
   $resultado =mysqli_fetch_array($con -> query($sql));
    
@@ -52,26 +47,17 @@
     $sql2="UPDATE empresa SET  pinesusados=pinesusados+1 WHERE idem = $Idem";
     $resultado2 = $con -> query($sql2);
     $Nombreempresa = $resultado[2];
-    $sql3="INSERT INTO `empleado` (`idcl`, `idempresa`, `empresa`, `nombre`, `sexo`, `estadocivil`, `nacimiento`, `estudios`, `ocupacion`, `departamentoresidencia`, `ciudadresidencia`, `estrato`, `vivienda`, `cargafamiliar`, `departamentotrabajo`, `ciudadtrabajo`, `aniostrabajo`, `cargotrabajo`, `tipocargo`, `anioscargo`, `areatrabajo`, `tipocontrato`, `horastrabdiarias`, `tiposalario`, `fecharegistro`, `fechaaplicacion`, `test1`, `test2`, `test3`, `test4`) VALUES ($Idcl,$Idem,'$Nombreempresa','$Nombre',$Sexo,$Estadocivil,'$Nacimiento','$Estudios','$Ocupacion','$Departamento','$Ciudad','$Estrato','$Vivienda',$Cargafamiliar,'$Departamento2','$Ciudadtrabajo',$Aniostrabajo,'$Cargotrabajo','$Tipocargo',$AniosCargo,'$Areatrabajo','$Tipocontrato',$Hotrastrab,'$Tiposalario','$Fecharegistro','$Fechaaplicacion', $IntraA,$IntraB,$Estres,$Extralaboral)";
+    $sql3="INSERT INTO `empleado` (`idcl`, `idempresa`, `empresa`, `nombre`, `sexo`, `estadocivil`, `nacimiento`, `estudios`, `ocupacion`, `departamentoresidencia`, `ciudadresidencia`, `estrato`, `vivienda`, `cargafamiliar`, `departamentotrabajo`, `ciudadtrabajo`, `aniostrabajo`, `cargotrabajo`, `tipocargo`, `anioscargo`, `areatrabajo`, `tipocontrato`, `horastrabdiarias`, `tiposalario`, `fecharegistro`, `fechaaplicacion`, `test1`, `test2`, `test3`, `test4`, `correo`) VALUES ($Idcl,$Idem,'$Nombreempresa','$Nombre',$Sexo,$Estadocivil,'$Nacimiento','$Estudios','$Ocupacion','$Departamento','$Ciudad','$Estrato','$Vivienda',$Cargafamiliar,'$Departamento2','$Ciudadtrabajo',$Aniostrabajo,'$Cargotrabajo','$Tipocargo',$AniosCargo,'$Areatrabajo','$Tipocontrato',$Hotrastrab,'$Tiposalario','$Fecharegistro','$Fechaaplicacion', $IntraA,$IntraB,$Estres,$Extralaboral, '$Correo')";
     $resultado3 = $con -> query($sql3);
     if($resultado2 && $resultado3)
     {
-     echo "<script>
-               alert('datos guardados correctamente!');
-               window.location= ' ../paginas/ver_empleados.php?idempr=$Idem'
-           </script>";
+      echo json_encode(["status" => "success", "message" => "Empleado guardado correctamente"]);
     }
     else
     {
-          echo "<script>
-                       alert('ha ocurrido un error!');
-                       window.location= '../paginas/empresas.php'
-                </script>";
+      echo json_encode(["status" => "error", "message" => "Ha ocurrido un erro, intente nuevamente"]);
     }
    }else{
-         echo "<script>
-                       alert('la empresa no cuenta con mas pines!');
-                       window.location= '../paginas/empresas.php'
-                </script>";
+      echo json_encode(["status" => "error", "message" => "La empresa no cuenta con mas pines"]);
    }   
 ?>

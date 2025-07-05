@@ -33,28 +33,24 @@
   $p31 = @$_POST['preg31'];
   $idempleado = $_GET['idem'];
   $idempresa = $_GET['idemp'];
-  $sql="INSERT INTO `estres`(`preg1`, `preg2`, `preg3`, `preg4`, `preg5`, `preg6`, `preg7`, `preg8`, `preg9`, `preg10`, `preg11`, `preg12`, `preg13`, `preg14`, `preg15`, `preg16`, `preg17`, `preg18`, `preg19`, `preg20`, `preg21`, `preg22`, `preg23`, `preg24`, `preg25`, `preg26`, `preg27`, `preg28`, `preg29`, `preg30`, `preg31`,id_empl) VALUES ($p1,$p2,$p3,$p4,$p5,$p6,$p7,$p8,$p9,$p10,$p11,$p12,$p13,$p14,$p15,$p16,$p17,$p18,$p19,$p20,$p21,$p22,$p23,$p24,$p25,$p26,$p27,$p28,$p29,$p30,$p31,$idempleado);";
+  $sql="INSERT INTO `estres`(`preg1`, `preg2`, `preg3`, `preg4`, `preg5`, `preg6`, `preg7`, `preg8`, `preg9`, `preg10`, `preg11`, `preg12`, `preg13`, `preg14`, `preg15`, `preg16`, `preg17`, `preg18`, `preg19`, `preg20`, `preg21`, `preg22`, `preg23`, `preg24`, `preg25`, `preg26`, `preg27`, `preg28`, `preg29`, `preg30`, `preg31`,id_empl) VALUES ($p1,$p2,$p3,$p4,$p5,$p6,$p7,$p8,$p9,$p10,$p11,$p12,$p13,$p14,$p15,$p16,$p17,$p18,$p19,$p20,$p21,$p22,$p23,$p24,$p25,$p26,$p27,$p28,$p29,$p30,$p31,$idempleado)";
   $resultado = $con -> query($sql);
-    if($resultado)
-    {
-   //actualizar terminar formulario extralaboral
-    $sql2 = "UPDATE empleado set step0t4=1, test4=2 where idus = $idempleado";
-    $resultado2 = $con -> query($sql2);
-    //calificar formulario extralaboral
-    include ('calificar-estres.php');
-    $idedepartamento = mysqli_fetch_array($con->query("SELECT areatrabajo from empleado where idus = $idempleado"));
-    calificar_Estres($idempleado,$idempresa,$idedepartamento[0]);
-    //reaalizar informe extralaboral
-     echo "<script>
-               window.location= '../reportes_individuales/plantilla_estres.php?idempl=$idempleado&idempr=$idempresa'
-           </script>";
+    if($resultado){
+    //actualizar terminar formulario extralaboral
+      $sql2 = "UPDATE empleado set step0t4=1, test4=2 where idus = $idempleado";
+      $resultado2 = $con -> query($sql2);
+      //calificar formulario extralaboral
+      include ('calificar-estres.php');
+      $idedepartamento = mysqli_fetch_array($con->query("SELECT areatrabajo from empleado where idus = $idempleado"));
+      calificar_Estres($idempleado,$idempresa,$idedepartamento[0]);
+      //reaalizar informe extralaboral
+      echo json_encode([
+        "status" => "success", 
+        "message" => "Test de estrés guardado correctamente", 
+        "url" => "../reportes_individuales/plantilla_estres.php?idempl=" . $idempleado . "&idempr=" . $idempresa
+      ]);
+      
+    }else{
+      echo json_encode(["status" => "error", "message" => "Ha ocurrido un error al guardar el test de estrés"]);
     }
-    else
-    {
-          echo "<script>
-                       alert('ha ocurrido un error $idempresa $idempleado!');
-                       window.location= '../cuestionarios/extralaboral.php?idempl=$idempleado&idempr=$idempresa'
-                </script>";
-    }
- 
 ?>

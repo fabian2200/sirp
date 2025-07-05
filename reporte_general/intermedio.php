@@ -25,47 +25,41 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<style>
+		.item{
+			margin: 10px;
+		}
+	</style>
 </head>
 <body>
-	<?php 
-	if ($resultado[0]>0 && $resultado2[0]>0){
-
-	    $filename = "general_intra_A_B_".$nombredepartamento2."_".$iddepartamento.".pdf";
-
-	    $con->query("INSERT into informe_general (id_empresa,id_cliente,id_departamento,fecha,nombre_archivo) values ($idempresa,$idcliente,$iddepartamento,'$fecha','$filename')");
-	?>	
-		<div class="container text-center" style="padding-top: 150px; padding-bottom: 150px">
-			<h3>Este departamento cuenta con empleados intra-A e intra-B</h3>
-			<hr>
-			<button onclick="GenerarIntraAB()" class="btn btn-success">Generar Reporte</button>
-		</div>	
+	<div class="container" style="padding-top: 100px; padding-bottom: 100px; display: flex; justify-content: center; align-items: center;">
 	<?php
-	}else{
+	
 	    if ($resultado[0]>0) {
-	        $filename = "general_intra_A_".$nombredepartamento2."_".$iddepartamento.".pdf";
-	          
-	        $con->query("INSERT into informe_general (id_empresa,id_cliente,id_departamento,fecha,nombre_archivo) values ($idempresa,$idcliente,$iddepartamento,'$fecha','$filename')");
+	        $filename = "general_intra_A_".$nombredepartamento2."_".$iddepartamento.".pdf"; 
 	?>	
-			<div class="container text-center" style="padding-top: 150px; padding-bottom: 150px">
-				<h3>Este departamento solo cuenta con empleados intra-A</h3>
-				<hr>
-				<button onclick="GenerarIntraA()" class="btn btn-success">Generar Reporte</button>
-			</div>	
-	<?php
-	    }else{
-	          	$filename = "general_intra_B_".$nombredepartamento2."_".$iddepartamento.".pdf";
-	          
-	          	$con->query("INSERT into informe_general (id_empresa,id_cliente,id_departamento,fecha,nombre_archivo) values ($idempresa,$idcliente,$iddepartamento,'$fecha','$filename')");
-	?>	
-			<div class="container text-center" style="padding-top: 150px; padding-bottom: 150px">
-				<h3>Este departamento solo cuenta con empleados intra-B</h3>
-				<hr>
-				<button onclick="GenerarIntraB()" class="btn btn-success">Generar Reporte</button>
+			<div class="container text-center alert alert-success item">
+				<h3>Este departamento cuenta con empleados intra-A</h3>
+				<br>
+				<button onclick="GenerarIntraA()" class="btn btn-success"> <i class="fa fa-file-pdf-o"></i> Generar Reporte</button>
 			</div>	
 	<?php
 	    }
-	 }
+		
+		if ($resultado2[0]>0) {
+	          	$filename = "general_intra_B_".$nombredepartamento2."_".$iddepartamento.".pdf";
+	?>	
+			<div class="container text-center alert alert-success item">
+				<h3>Este departamento cuenta con empleados intra-B</h3>
+				<br>
+				<button onclick="GenerarIntraB()" class="btn btn-success"> <i class="fa fa-file-pdf-o"></i> Generar Reporte</button>
+			</div>	
+	<?php
+	    }
 	?>
+	</div>
 </body>
 <script type="text/javascript">
 	function GenerarIntraAB() {
@@ -118,7 +112,7 @@
 	function GenerarIntraB() {
 		$.ajax({
 		    type: 'GET',
-		    url: "general_intra_b.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>",
+		    url: "general_intra_b.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>&dpto=<?php echo $nombredepartamento2 ?>",
 		    beforeSend: function() {
 		        let timerInterval
 				Swal.fire({
@@ -165,7 +159,7 @@
 	function GenerarIntraA() {
 		$.ajax({
 		    type: 'GET',
-		    url: "general_intra_a.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>",
+		    url: "general_intra_a.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>&dpto=<?php echo $nombredepartamento2 ?>",
 		    beforeSend: function() {
 		        let timerInterval
 				Swal.fire({
