@@ -14,6 +14,12 @@
   $resultado2 =  mysqli_fetch_array($con ->query($sql2));
   ////////////////////////////////////////////////////////////////////////////////////////////
   $resultado =  mysqli_fetch_array($con ->query($sql));
+
+  $empresa = mysqli_fetch_array($con -> query("SELECT empresa FROM empresa WHERE idem = $idempresa"));	
+  $nombre_empresa = $empresa[0];
+
+  $empleados_intra_a = mysqli_fetch_array($con -> query("SELECT COUNT(*) FROM `empleado` WHERE `idempresa`=$idempresa and `areatrabajo`=$iddepartamento and (`test1`=1 or `test1` = 2)"));
+  $empleados_intra_b = mysqli_fetch_array($con -> query("SELECT COUNT(*) FROM `empleado` WHERE `idempresa`=$idempresa and `areatrabajo`=$iddepartamento and (`test2`=1 or `test2` = 2)"));
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,7 +40,13 @@
 	</style>
 </head>
 <body>
-	<div class="container" style="padding-top: 100px; padding-bottom: 100px; display: flex; justify-content: center; align-items: center;">
+	<div class="container" style="padding-top: 30px;">
+		<h2 style="font-weight: bold; color: #224abe; ">Reporte General</h2>
+		<hr>
+		<h3 style="font-weight: bold; color:rgb(104, 104, 104); ">Empresa: <?php echo $nombre_empresa; ?></h3>
+		<h3 style="font-weight: bold; color:rgb(104, 104, 104); ">Area de trabajo o Departamento: <?php echo $nombredepartamento2; ?></h3>
+	</div>
+	<div class="container" style="padding-top: 30px; padding-bottom: 50px; display: flex; justify-content: center; align-items: center;">
 	<?php
 	
 	    if ($resultado[0]>0) {
@@ -42,6 +54,7 @@
 	?>	
 			<div class="container text-center alert alert-success item">
 				<h3>Este departamento cuenta con empleados intra-A</h3>
+				<h3><i class="fa fa-users"></i> Total de empleados: <?php echo $empleados_intra_a[0]; ?></h3>
 				<br>
 				<button onclick="GenerarIntraA()" class="btn btn-success"> <i class="fa fa-file-pdf-o"></i> Generar Reporte</button>
 			</div>	
@@ -53,6 +66,7 @@
 	?>	
 			<div class="container text-center alert alert-success item">
 				<h3>Este departamento cuenta con empleados intra-B</h3>
+				<h3><i class="fa fa-users"></i> Total de empleados: <?php echo $empleados_intra_b[0]; ?></h3>
 				<br>
 				<button onclick="GenerarIntraB()" class="btn btn-success"> <i class="fa fa-file-pdf-o"></i> Generar Reporte</button>
 			</div>	
@@ -157,6 +171,8 @@
 	}
 
 	function GenerarIntraA() {
+		window.open("general_intra_a.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>&dpto=<?php echo $nombredepartamento2 ?>", "_blank");
+		/*
 		$.ajax({
 		    type: 'GET',
 		    url: "general_intra_a.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>&dpto=<?php echo $nombredepartamento2 ?>",
@@ -176,7 +192,6 @@
 				    clearInterval(timerInterval)
 				  }
 				}).then((result) => {
-				  /* Read more about handling dismissals below */
 				  if (result.dismiss === Swal.DismissReason.timer) {
 				  }
 				})
@@ -201,6 +216,7 @@
 				})
 		    },
 		});
+		*/
 	}
 </script>
 </html>

@@ -23,6 +23,7 @@ if(($_SESSION['logueado']) == true){
     <!-- Custom styles for this template-->
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body style="padding: 20px;">
 <?php 
@@ -190,18 +191,19 @@ if(($_SESSION['logueado']) == true){
 <br>  
 <!-- Modal aumentar-->
  <div id="id01" class="w3-modal">
-    <div class="w3-modal-content">
+    <div class="w3-modal-content" style="width: 500px">
       <div class="w3-container">
         <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-        <div class="text-center"><h4>Por favor ingrese el # de empleados que desea disminuir a esta empresa</h4></div> 
+        <div class="text-center"><h2>Disminuir empleados</h2></div> 
         <hr>
-          <form action="../acciones/disminuir_empleados.php" method="POST">
-            <input type="number" name="pinesdisminuir" class="form-control">
+          <form method="POST" id="form_disminuir">
+            <label style="font-size: 1.2em; font-weight: bold;" for="pinesdisminuir">Por favor ingrese el # de empleados que desea disminuir a esta empresa</label>
+            <input type="number" id="pinesdisminuir" name="pinesdisminuir" class="form-control">
             <hr>
             <input type="hidden" name="idclientedisminuir" value="<?php echo $id ?>" class="form-control">
             <input type="hidden" class="form-control" id="Idempresa"  name="empresadisminuir" value="" >
-            <div class="text-center"><button type="submit" class="btn btn-success">Guardar</button></div>
-            <hr>
+            <div class="text-center"><button type="button" onclick="disminuirEmpleados()" class="btn btn-success"> <i class="fa fa-minus-square" aria-hidden="true"></i> Guardar</button></div>
+            <br>
           </form>
       </div>
     </div>
@@ -210,33 +212,133 @@ if(($_SESSION['logueado']) == true){
 
   <!-- Modal disminuir -->
   <div id="id02" class="w3-modal">
-    <div class="w3-modal-content">
+    <div class="w3-modal-content" style="width: 500px">
       <div class="w3-container">
         <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-        <div class="text-center"><h4>Por favor ingrese el # de empleados que desea adicionar a esta empresa</h4></div>
+        <div class="text-center"><h2>Aumentar empleados</h2></div>
         <hr>
-          <form action="../acciones/adicionar_empleados.php" method="POST">
-            <input type="number" name="pinesadicionar" class="form-control">
+          <form method="POST" id="form_adicionar">
+            <label style="font-size: 1.2em; font-weight: bold;" for="pinesadicionar">Por favor ingrese el # de empleados que desea adicionar a esta empresa</label>
+            <input type="number" id="pinesadicionar" name="pinesadicionar" class="form-control">
             <input type="hidden" name="idlienteadicionar" value="<?php echo $id ?>" class="form-control">
-            <input type="hidden" class="form-control" id="Ide2"  name="empresaadicionar" value="" >
+            <input type="hidden" class="form-control" id="Idempresa2"  name="empresaadicionar" value="" >
             <hr>
-            <div class="text-center"><button type="submit" class="btn btn-success">Guardar</button></div>
-            <hr>
+            <div class="text-center"><button type="button" onclick="adicionarEmpleados()" class="btn btn-success"> <i class="fa fa-plus-square" aria-hidden="true"></i> Guardar</button></div>
+            <br>
           </form>
       </div>
     </div>
   </div>
   <!-- Modal --> 
-<script type="text/javascript">
-  function cambiaValores(valor) {
-    var inputNombre = document.getElementById("Idempresa");
-    inputNombre.value = valor;
-}
-function cambiaValores2(valor) {
-    var inputNombre = document.getElementById("Ide2");
-    inputNombre.value = valor;
-}
-</script> 
+  <script type="text/javascript">
+    function cambiaValores(valor) {
+      var inputNombre = document.getElementById("Idempresa");
+      inputNombre.value = valor;
+      var pinesdisminuir = document.getElementById("pinesdisminuir");
+      pinesdisminuir.value = 0;
+
+  }
+  function cambiaValores2(valor) {
+      var inputNombre = document.getElementById("Idempresa2");
+      inputNombre.value = valor;
+      var pinesadicionar = document.getElementById("pinesadicionar");
+      pinesadicionar.value = 0;
+  }
+  </script> 
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    function disminuirEmpleados() {
+      $.ajax({
+        url: "../acciones/disminuir_empleados.php",
+        type: "POST",
+        data: $("#form_disminuir").serialize(),
+        beforeSend: function(){
+          Swal.fire({
+            title: "Disminuyendo empleados...",
+            text: "Espere un momento por favor",
+            icon: "info",
+            allowOutsideClick: false,
+            didOpen: function(){
+              Swal.showLoading();
+            }
+          })
+        },
+        success: function(response){
+          var data = JSON.parse(response);
+          if(data.status == "success"){
+            Swal.fire({
+              title: data.message,
+              icon: "success",
+              confirmButtonText: "Aceptar",
+              didClose: function(){
+                window.location.reload();
+              }
+            })
+          }else{
+            Swal.fire({
+              title: data.message,
+              icon: "error",
+              confirmButtonText: "Aceptar",
+            })
+          }
+        },
+        error: function(xhr, status, error){
+          Swal.fire({
+            title: "Error al disminuir empleados",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+          })
+        }
+      })
+    }
+
+    function adicionarEmpleados() {
+      $.ajax({
+        url: "../acciones/adicionar_empleados.php",
+        type: "POST",
+        data: $("#form_adicionar").serialize(),
+        beforeSend: function(){
+          Swal.fire({
+            title: "Aumentando empleados...",
+            text: "Espere un momento por favor",
+            icon: "info",
+            allowOutsideClick: false,
+            didOpen: function(){
+              Swal.showLoading();
+            }
+          })
+        },
+        success: function(response){
+          var data = JSON.parse(response);
+          if(data.status == "success"){
+            Swal.fire({
+              title: data.message,
+              icon: "success",
+              confirmButtonText: "Aceptar",
+              didClose: function(){
+                window.location.reload();
+              }
+            })
+          }else{
+            Swal.fire({
+              title: data.message,
+              icon: "error",
+              confirmButtonText: "Aceptar",
+            })
+          }
+        },
+        error: function(xhr, status, error){
+          Swal.fire({
+            title: "Error al aumentar empleados",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+          })
+        }
+      })
+    }
+  </script>
 </body>
 </html>
 

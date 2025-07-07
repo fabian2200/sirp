@@ -71,11 +71,12 @@ if(($_SESSION['logueado']) == true){ ?>
           <i class="fa fa-home" aria-hidden="true"></i>
           <span>Empresas</span>
         </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Opciones:</h6>
             <a class="collapse-item" href="paginas/empresas.php" target="iframe_a" >Mis Empresas</a>
             <a class="collapse-item" href="paginas/registrar_empresa.php"  target="iframe_a" >Nueva Empresa</a>
+            <a class="collapse-item" href="paginas/departamentos.php"  target="iframe_a" >Areas o Departamentos</a>
           </div>
         </div>
       </li>

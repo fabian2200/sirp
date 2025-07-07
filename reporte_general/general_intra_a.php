@@ -2016,27 +2016,6 @@
   </div>
  </body></html>
 <?php
-require_once '../dompdf/vendor/autoload.php';
-use Dompdf\Dompdf;
-$ruta = "archivos/$nombrecliente[0]";
-if (!file_exists($ruta)) {
-  mkdir("archivos/$nombrecliente[0]", 0755);
-}
 
-$ruta2 = "archivos/$nombrecliente[0]/$nombreempresa";
-if (!file_exists($ruta2)) {
-   mkdir("archivos/$nombrecliente[0]/$nombreempresa", 0755);
-}
-
-$rutaGuardado = "archivos/$nombrecliente[0]/$nombreempresa/";
-$dompdf = new DOMPDF();
-$dompdf->set_paper("letter", "portrait");
-$dompdf->load_html(ob_get_clean());
-$dompdf->render();
-$pdf = $dompdf->output();
-$filename = "general_intra_A_".$nombredepartamento2."_".$iddepartamento.".pdf";
-file_put_contents($rutaGuardado.$filename, $pdf); 
-echo "";
-//$dompdf->stream($filename); 
 
 ?>

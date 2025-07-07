@@ -329,19 +329,14 @@ if(($_SESSION['logueado']) == true){
         </div>
         <div class="modal-body">
           <h2>Por favor ingrese el nombre del departamento a registrar:</h2>
-          <form action="../acciones/guardar_departamento.php" method="POST">
+          <form method="POST" id="form_departamento">
           	<input type="text" name="Nombredepartamento" class="form-control" required>
           	<hr>
           	<input type="hidden" name="Idcliente" value="<?php echo $id ?>" class="form-control">
-            <input type="hidden" class="form-control" id="Ide"  name="Idem" value="<?php echo $idempresa ?>" >
-          	<button type="submit" class="btn btn-success">Guardar</button>
+          	<button type="button" id="btn_guardar" onclick="guardarDepartamento()" class="btn btn-success">Guardar <i class="fa fa-save"></i></button>
           </form>
         </div>
-        <div class="modal-footer">
-           <h6>@fabiandres</h6>
-        </div>
       </div>
-      
     </div>
   </div> 
   <!-- Modal --> 
@@ -440,6 +435,56 @@ if(($_SESSION['logueado']) == true){
 			return true;
 		}
 	}
+
+	function guardarDepartamento(){
+      $.ajax({
+        url: "../acciones/guardar_departamento.php",
+        type: "POST",
+        data: $("#form_departamento").serialize(),
+        beforeSend: function(){
+          Swal.fire({
+            title: "Guardando...",
+            text: "Espere un momento por favor",
+            icon: "info",
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            didOpen: function(){
+              Swal.showLoading();
+            }
+          });
+        },
+        success: function(response){
+          var data = JSON.parse(response);
+          if(data.status == "success"){
+            Swal.fire({
+				position: "top",
+				title: data.message,
+				icon: "success",
+				confirmButtonText: "Aceptar",
+				didClose: function(){
+					window.location.reload();
+				}
+            });
+          }else{
+            Swal.fire({ 
+				position: "top",
+				title: data.message,
+				icon: "error",
+				confirmButtonText: "Aceptar",
+            });
+          }
+        },
+        error: function(xhr, status, error){  
+          Swal.fire({
+			position: "top",
+            title: "Error",
+            text: "Ha ocurrido un error, intente nuevamente",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+          });
+        }
+      });
+    }
 </script>
 </html>
 <?php

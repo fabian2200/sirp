@@ -17,12 +17,17 @@
                      echo json_encode(array(
                             "status" => "success", 
                             "message" => "Empleados adicionados correctamente",
-                            "href" => "../paginas/empresas.php"
                      ));
               }else{
-                     echo json_encode(array("status" => "error", "message" => "Ha ocurrido un error"));
+                     echo json_encode(array(
+                            "status" => "error", 
+                            "message" => "Ha ocurrido un error")
+                     );
               }
        }else{
-              echo json_encode(array("status" => "error", "message" => "No cuenta con esa cantidad de pines, puede adicionar ".$resultado2[0]." pines."));
+              echo json_encode(array(
+                     "status" => "error", 
+                     "message" => "No cuenta con esa cantidad de pines, puede adicionar ".$resultado2[0]." pines.")
+              );
        }
 ?>

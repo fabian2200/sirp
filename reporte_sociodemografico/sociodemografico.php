@@ -11,10 +11,10 @@ $resultado = mysqli_fetch_array($con -> query($sql));
 $sql2="SELECT * FROM `cliente` WHERE idcl = $idcliente";
 $resultado2 = mysqli_fetch_array($con -> query($sql2));
 
-/*
+
 $sql3="UPDATE `empresa` SET `sociodemografico` = sociodemografico + 1 WHERE `idem` = $idempresa";
 $con -> query($sql3);
-*/
+
 ?>
 <!DOCTYPE html>
 <html ><head>

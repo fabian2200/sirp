@@ -28,7 +28,7 @@ if(($_SESSION['logueado']) == true){
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Informe Sociodemografico</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" onclick="cerrarModal()">&times;</button>
         </div>
         
         <!-- Modal body -->
@@ -150,8 +150,16 @@ if(($_SESSION['logueado']) == true){
 </div>
 <script>
   function cambiar_ruta_iframe(id_emp, id_cli) {
-    debugger;
     document.getElementById('iframe_modal').src = '../reporte_sociodemografico/sociodemografico.php?id_emp='+id_emp+'&id_cli='+id_cli;
+  }
+</script>
+
+<script>
+  function cerrarModal(){
+    $('#myModal').modal('hide');
+    setTimeout(function(){
+      window.location.reload();
+    }, 1000);
   }
 </script>
 </body>
