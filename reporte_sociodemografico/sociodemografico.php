@@ -28,6 +28,7 @@ $con -> query($sql3);
             display: flex;
             justify-content: center;
             align-items: center;
+            background-color:rgb(238, 238, 238);
         }
 		img{
   			margin: 0;
@@ -54,13 +55,17 @@ $con -> query($sql3);
 		canvas{
 			width: 400px !important;
 			height: 400px !important;
-            margin-top: -100px !important;
 		}
 		
 		body {
+            margin-top: 150px;
+            background-color:rgb(255, 255, 255);
+            width: 900px;
 			text-align: center;
 			font-family: 'Arial', sans-serif;
             font-size: 11pt;
+            border-radius: 20px;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 		}
 		
 		.chart-container, .chart-container-small, .chart-container-large {
@@ -79,7 +84,7 @@ $con -> query($sql3);
 			margin-top: 20px;
 			margin-bottom: 20px;
 			padding: 10px 20px;
-			background-color: #007bff;
+			background-color:rgb(8, 136, 14);
 			color: white;
 			border: none;
 			border-radius: 10px;
@@ -107,6 +112,8 @@ $con -> query($sql3);
 		}
 
 		.salto{
+            width: 100%;
+            border-top: 3px dashed rgb(107, 107, 107);
 			page-break-before: always;
 		}
 
@@ -116,6 +123,7 @@ $con -> query($sql3);
 			}
 
             body{
+                margin-top: 0px;
                 font-family: Arial, sans-serif;
                 font-size: 11pt !important;
                 padding: 0;
@@ -131,6 +139,16 @@ $con -> query($sql3);
             @page {
                 margin: 3cm !important;
                 size: letter;
+            }
+
+            .salto{
+                width: 100%;
+                border-top: none;
+                page-break-before: always;
+            }
+
+            #alerta{
+                display: none;
             }
 		}
 
@@ -178,8 +196,42 @@ $con -> query($sql3);
            margin-bottom: 18px !important;
            margin-top: 18px !important;
         }
+
+        .table_bordered {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+            border-collapse: collapse;
+        }   
+
+        .table_bordered th, .table_bordered td{
+            border: 1px solid rgb(90, 90, 90) !important;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .alerta{
+            width: 60%;
+            margin: auto;
+            text-align: center;
+            margin-top: 20px;
+            background-color:rgb(255, 217, 135);
+            color: white;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            position: absolute;
+            top: 10px;
+            left: 19.5%;
+            z-index: 1000;
+            color: rgb(136, 63, 15);
+        }
 	</style>
 </head><body>
+    <div class="container alerta" id="alerta">
+        <h3>Estas viendo la vista previa del informe sociodemografico de la empresa <strong><?php echo $resultado[2]; ?></strong>, para descargar el informe, por favor presione el boton de imprimir.</h3>
+        <button id="imprimir" onclick="window.print()"><i style="margin-right: 10px;" class="fas fa-print"></i> Imprimir</button>
+    </div>
 	<button id="imprimir" onclick="window.print()"><i style="margin-right: 10px;" class="fas fa-print"></i> Imprimir</button>
     <div class="contenido" style="text-align: center">
         <h4>INFORME SOBRE LOS RESULTADOS DE LA APLICACIÓN DE LA BATERÍA DE INSTRUMENTOS DE RIESGO PSICOSOCIAL</h4>

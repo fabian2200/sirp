@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>Compra de Pines - SIRP</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
+  <style type='text/css'>
+    /* Take care of image borders and formatting */
+
+    img {
+      max-width: 600px;
+      outline: none;
+      text-decoration: none;
+      -ms-interpolation-mode: bicubic;
+    }
+
+    a {
+      border: 0;
+      outline: none;
+    }
+
+    a img {
+      border: none;
+    }
+
+    /* General styling */
+
+    td,
+    h1,
+    h2,
+    h3 {
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: 400;
+    }
+
+    td {
+      font-size: 13px;
+      line-height: 19px;
+      text-align: left;
+      padding: 10px;
+    }
+
+    body {
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: none;
+      width: 100%;
+      height: 100%;
+      color: #37302d;
+      background: #ffffff;
+    }
+
+    table {
+      border-collapse: collapse !important;
+    }
+
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      padding: 0;
+      margin: 0;
+      color: #444444;
+      font-weight: 400;
+      line-height: 110%;
+    }
+
+    h1 {
+      font-size: 35px;
+    }
+
+    h2 {
+      font-size: 30px;
+    }
+
+    h3 {
+      font-size: 24px;
+    }
+
+    h4 {
+      font-size: 18px;
+      font-weight: normal;
+    }
+
+    .important-font {
+      color: #21BEB4;
+      font-weight: bold;
+    }
+
+    .hide {
+      display: none !important;
+    }
+
+    .force-full-width {
+      width: 100% !important;
+    }
+  </style>
+</head>
+
+<body class='body' style='padding:0; margin:0; display:block; background:#ffffff; -webkit-text-size-adjust:none'
+  bgcolor='#ffffff'>
+  <div style='padding: 2%; text-align: center'>
+    <img style='width: 114px'
+      src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMH35LoELuTjL6_P4iBqIDza9nfGfKw-tT2kGv0f1cnA&s'
+      width='60%' alt='Your Logo' />
+  </div>
+  <div class='row' style='padding-top: 20px'>
+    <div class='col-lg-9'
+      style='padding-left: 10%; padding-right: 10%;border-right: 3px solid gray;border-left: 3px solid gray;'>
+      <h3 style="color: #136660;"><b>Actualización de pines - SIRP</b></h3>
+      <br>
+      <h4>Cordial saludo <strong style="font-weight: bold; text-transform: capitalize;">{{nombre}}</strong>:</h4>
+      <h4 style='text-align: justify;'>Usted ha adquirido nuestro servicio de pines para el Sistema Integral para la Elaboración de los Informes de la Batería del Riesgo Psicosocial (SIRP).</h4>
+      <br>
+      <h4 style="color: #136660;"><b>Resumen de su compra</b></h4>
+      <br>
+      <table style='width: 100% !important; border: 1px solid;'>
+        <tr style='border: 1px solid;'>
+          <td style='font-weight: bold; border: 1px solid;'>Pines Comprados</td>
+          <td style='font-weight: bold; border: 1px solid;'>Precio Pin</td>
+          <td style='font-weight: bold; border: 1px solid;'>Subtotal</td>
+          <td style='font-weight: bold; border: 1px solid;'>Descuento</td>
+          <td style='font-weight: bold; border: 1px solid;'>Total</td>
+        </tr>
+        <tr style='border: 1px solid;'>
+          <td style='font-weight: bold; border: 1px solid;'>{{pines}}</td>
+          <td style='font-weight: bold; border: 1px solid;'>$ {{precio_pin}}</td>
+          <td style='font-weight: bold; border: 1px solid;'>$ {{subtotal}}</td>
+          <td style='font-weight: bold; border: 1px solid;'>{{porcentaje_descuento}}%</td>
+          <td style='font-weight: bold; border: 1px solid;'>$ {{total_pagar}}</td>
+        </tr>
+      </table>
+      <br>
+      <div style="border: 1px solid #136660; padding: 10px; border-radius: 10px; background-color: #a0fff9;">
+        <h4 style="color: #136660;"><b>Información importante</b></h4>
+        <br>
+        <h4>Hemos actualizado la cantidad de pines que usted tiene disponibles en el sistema, sumando los pines que ha adquirido en esta ocasión ({{pines}}).</h4>
+      </div>
+      <hr>
+      <br>
+      <h4 style='text-align:justify; color: #136660; font-weight: bold;'>De antemano agradecemos la confianza depositada en nosotros.</h4>
+      <p style="color: #136660; margin-top: 10px; margin-bottom: 4px;"><b>Atentamente</b></p>
+      <p style='margin: 4px;'>Instituto Colombiano de Psicometría.</p>
+      <p style='margin: 4px;'>Ps. Mgr. Antonio Martínez, Gerente</p>
+      <p style='margin: 4px;'>Correo: incolpsicometria@gmail.com - Celular (WhatsApp): 3012990890</p>
+    </div>
+  </div>
+</body>
+</html>

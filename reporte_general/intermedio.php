@@ -20,6 +20,11 @@
 
   $empleados_intra_a = mysqli_fetch_array($con -> query("SELECT COUNT(*) FROM `empleado` WHERE `idempresa`=$idempresa and `areatrabajo`=$iddepartamento and (`test1`=1 or `test1` = 2)"));
   $empleados_intra_b = mysqli_fetch_array($con -> query("SELECT COUNT(*) FROM `empleado` WHERE `idempresa`=$idempresa and `areatrabajo`=$iddepartamento and (`test2`=1 or `test2` = 2)"));
+
+  $cantidadgenerada_a = $con->query("SELECT COUNT(*) FROM `informe_general` WHERE id_departamento = $iddepartamento and id_empresa = $idempresa and tipo_informe = 'A'");
+  $cantidadgenerada_b = $con->query("SELECT COUNT(*) FROM `informe_general` WHERE id_departamento = $iddepartamento and id_empresa = $idempresa and tipo_informe = 'B'");
+  $cantidadgenerada_a = mysqli_fetch_array($cantidadgenerada_a);
+  $cantidadgenerada_b = mysqli_fetch_array($cantidadgenerada_b);
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,10 +58,25 @@
 	        $filename = "general_intra_A_".$nombredepartamento2."_".$iddepartamento.".pdf"; 
 	?>	
 			<div class="container text-center alert alert-success item">
-				<h3>Este departamento cuenta con empleados intra-A</h3>
-				<h3><i class="fa fa-users"></i> Total de empleados: <?php echo $empleados_intra_a[0]; ?></h3>
+				<h4>Este departamento cuenta con empleados intra-A</h4>
 				<br>
-				<button onclick="GenerarIntraA()" class="btn btn-success"> <i class="fa fa-file-pdf-o"></i> Generar Reporte</button>
+				<div class="alert alert-info" style="padding: 10px;">
+					<h4><i class="fa fa-users"></i> Total de empleados: <?php echo $empleados_intra_a[0]; ?></h4>
+					<?php
+						if($cantidadgenerada_a[0] == 0){
+							echo "<h4 style='margin-bottom: 0px;'><i class='fa fa-file-pdf-o'></i> Informes Generados: <strong>0</strong> de 3</h4>";
+						}else{
+							echo "<h4 style='margin-bottom: 0px;'><i class='fa fa-file-pdf-o'></i> Informes Generados: <strong>".$cantidadgenerada_a[0]."</strong> de 3</h4>";
+						}
+					?>
+				</div>
+				<?php
+					if($cantidadgenerada_a[0] < 3){
+				?>
+				   <button onclick="GenerarIntraA()" class="btn btn-success"> <i class="fa fa-file-pdf-o"></i> Generar Reporte</button>
+				<?php
+					}
+	            ?>
 			</div>	
 	<?php
 	    }
@@ -65,10 +85,25 @@
 	          	$filename = "general_intra_B_".$nombredepartamento2."_".$iddepartamento.".pdf";
 	?>	
 			<div class="container text-center alert alert-success item">
-				<h3>Este departamento cuenta con empleados intra-B</h3>
-				<h3><i class="fa fa-users"></i> Total de empleados: <?php echo $empleados_intra_b[0]; ?></h3>
+				<h4>Este departamento cuenta con empleados intra-B</h4>
 				<br>
-				<button onclick="GenerarIntraB()" class="btn btn-success"> <i class="fa fa-file-pdf-o"></i> Generar Reporte</button>
+				<div class="alert alert-info" style="padding: 10px;">
+					<h4><i class="fa fa-users"></i> Total de empleados: <?php echo $empleados_intra_b[0]; ?></h4>
+					<?php
+						if($cantidadgenerada_b[0] == 0){
+							echo "<h4 style='margin-bottom: 0px;'><i class='fa fa-file-pdf-o'></i> Informes Generados: <strong>0</strong> de 3</h4>";
+						}else{
+							echo "<h4 style='margin-bottom: 0px;'><i class='fa fa-file-pdf-o'></i> Informes Generados: <strong>".$cantidadgenerada_b[0]."</strong> de 3</h4>";
+						}
+					?>
+				</div>
+				<?php
+					if($cantidadgenerada_b[0] < 3){
+				?>
+				   <button onclick="GenerarIntraB()" class="btn btn-success"> <i class="fa fa-file-pdf-o"></i> Generar Reporte</button>
+				<?php
+					}
+				?>
 			</div>	
 	<?php
 	    }
@@ -76,147 +111,97 @@
 	</div>
 </body>
 <script type="text/javascript">
-	function GenerarIntraAB() {
-		$.ajax({
-		    type: 'GET',
-		    url: "general_todo.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>",
-		    beforeSend: function() {
-		        let timerInterval
-				Swal.fire({
-				  title: 'Espere mientras se genera el informe...',
-				  html: '',
-				  timer: 700000,
-				  timerProgressBar: true,
-				  didOpen: () => {
-				    Swal.showLoading()
-				    timerInterval = setInterval(() => {     
-				    }, 100)
-				  },
-				  willClose: () => {
-				    clearInterval(timerInterval)
-				  }
-				}).then((result) => {
-				  /* Read more about handling dismissals below */
-				  if (result.dismiss === Swal.DismissReason.timer) {
-				  }
-				})
-		    },
-		    success: function(data) {
-		       	Swal.fire({
-				  position: 'center',
-				  icon: 'success',
-				  title: 'Reporte Generado Correctamente',
-				  showConfirmButton: false,
-				  timer: 1500
-				});
-				setTimeout(function(){ window.location= '../paginas/informe.php'; }, 1500);
-		    },
-		    error: function(xhr) { // if error occured
-		       Swal.fire({
-		       	  position: 'center',
-				  icon: 'error',
-				  title: 'Oops...',
-				  text: 'Ocurrio un error, intente de nuevo',
-				  footer: 'ICP'
-				})
-		    },
-		});
-	}
 
 	function GenerarIntraB() {
 		$.ajax({
-		    type: 'GET',
-		    url: "general_intra_b.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>&dpto=<?php echo $nombredepartamento2 ?>",
-		    beforeSend: function() {
-		        let timerInterval
+			url: "../acciones/actualizarCantidadInforme.php",
+			type: "POST",
+			data: {
+				iddepartamento: "<?php echo $iddepartamento ?>",
+				idempresa: "<?php echo $idempresa ?>",
+				tipo_informe: "B"
+			},
+			beforeSend: function() {
 				Swal.fire({
-				  title: 'Espere mientras se genera el informe...',
-				  html: '',
-				  timer: 700000,
-				  timerProgressBar: true,
-				  didOpen: () => {
-				    Swal.showLoading()
-				    timerInterval = setInterval(() => {     
-				    }, 100)
-				  },
-				  willClose: () => {
-				    clearInterval(timerInterval)
-				  }
-				}).then((result) => {
-				  /* Read more about handling dismissals below */
-				  if (result.dismiss === Swal.DismissReason.timer) {
-				  }
-				})
-		    },
-		    success: function(data) {
-		       	Swal.fire({
-				  position: 'center',
-				  icon: 'success',
-				  title: 'Reporte Generado Correctamente',
-				  showConfirmButton: false,
-				  timer: 1500
+					title: 'Generando informe...',
+					html: 'Por favor, espere un momento...',
+					allowOutsideClick: false,
+					showConfirmButton: false,
+					showCancelButton: false,
+					didOpen: function() {
+						Swal.showLoading();
+					}
 				});
-				setTimeout(function(){ window.location= '../paginas/informe.php'; }, 1500);
-		    },
-		    error: function(xhr) { // if error occured
-		       Swal.fire({
-		       	  position: 'center',
-				  icon: 'error',
-				  title: 'Oops...',
-				  text: 'Ocurrio un error, intente de nuevo',
-				  footer: 'ICP'
-				})
-		    },
+			},
+			success: function(response) {
+				response = JSON.parse(response);
+				if(response.status == "ok") {
+					window.open("general_intra_b.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>", "_blank");
+					setTimeout(function() {
+						location.reload();
+					}, 1000);
+				}else{
+					Swal.fire({
+						title: 'Error',
+						text: 'No se pudo generar el informe',
+						icon: 'error'
+					});
+				}
+			},
+			error: function(xhr, status, error) {
+				Swal.fire({
+					title: 'Error',
+					text: 'No se pudo generar el informe',
+					icon: 'error'
+				});
+			}
 		});
 	}
 
 	function GenerarIntraA() {
-		window.open("general_intra_a.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>&dpto=<?php echo $nombredepartamento2 ?>", "_blank");
-		/*
 		$.ajax({
-		    type: 'GET',
-		    url: "general_intra_a.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>&dpto=<?php echo $nombredepartamento2 ?>",
-		    beforeSend: function() {
-		        let timerInterval
+			url: "../acciones/actualizarCantidadInforme.php",
+			type: "POST",
+			data: {
+				iddepartamento: "<?php echo $iddepartamento ?>",
+				idempresa: "<?php echo $idempresa ?>",
+				tipo_informe: "A"
+			},
+			beforeSend: function() {
 				Swal.fire({
-				  title: 'Espere mientras se genera el informe...',
-				  html: '',
-				  timer: 700000,
-				  timerProgressBar: true,
-				  didOpen: () => {
-				    Swal.showLoading()
-				    timerInterval = setInterval(() => {     
-				    }, 100)
-				  },
-				  willClose: () => {
-				    clearInterval(timerInterval)
-				  }
-				}).then((result) => {
-				  if (result.dismiss === Swal.DismissReason.timer) {
-				  }
-				})
-		    },
-		    success: function(data) {
-		       	Swal.fire({
-				  position: 'center',
-				  icon: 'success',
-				  title: 'Reporte Generado Correctamente',
-				  showConfirmButton: false,
-				  timer: 1500
+					title: 'Generando informe...',
+					html: 'Por favor, espere un momento...',
+					allowOutsideClick: false,
+					showConfirmButton: false,
+					showCancelButton: false,
+					didOpen: function() {
+						Swal.showLoading();
+					}
 				});
-				setTimeout(function(){ window.location= '../paginas/informe.php'; }, 1500);
-		    },
-		    error: function(xhr) { // if error occured
-		       Swal.fire({
-		       	  position: 'center',
-				  icon: 'error',
-				  title: 'Oops...',
-				  text: 'Ocurrio un error, intente de nuevo',
-				  footer: 'ICP'
-				})
-		    },
+			},
+			success: function(response) {
+				response = JSON.parse(response);
+				if(response.status == "ok") {
+					window.open("general_intra_a.php?iddepartamento=<?php echo $iddepartamento ?>&idcliente=<?php echo $idcliente ?>&idempresa=<?php echo $idempresa ?>", "_blank");
+					setTimeout(function() {
+						location.reload();
+					}, 1000);
+				}else{
+					Swal.fire({
+						title: 'Error',
+						text: 'No se pudo generar el informe',
+						icon: 'error'
+					});
+				}
+			},
+			error: function(xhr, status, error) {
+				Swal.fire({
+					title: 'Error',
+					text: 'No se pudo generar el informe',
+					icon: 'error'
+				});
+			}
 		});
-		*/
 	}
 </script>
 </html>

@@ -46,7 +46,7 @@ if(($_SESSION['logueado']) == true){ ?>
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active" style="text-align: center;color: white">
          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Menu</span>
+          <span>Menú</span>
           <br> 
       </li>
        <br>
@@ -156,15 +156,10 @@ if(($_SESSION['logueado']) == true){ ?>
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item"  href="paginas/perfil.php" target="iframe_a">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Perfil
                 </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Configuracion
-                </a>
-               
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -266,18 +261,12 @@ if(!empty($datos)){
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
 
-  <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
-
 </body>
 
 </html>
 <?php
 }else{  
+  header("Location: index.php");
   exit();
 }
 ?>

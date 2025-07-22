@@ -33,13 +33,13 @@ $dim5 = mysqli_fetch_array($con -> query("SELECT * FROM normas where iddi=50"));
 $dim6 = mysqli_fetch_array($con -> query("SELECT * FROM normas where iddi=51"));
 $dim7 = mysqli_fetch_array($con -> query("SELECT * FROM normas where iddi=52"));
 
-$puntajetrans1= ($puntajebruto1/$dim1[3])*100;
-$puntajetrans2= ($puntajebruto2/$dim2[3])*100;
-$puntajetrans3= ($puntajebruto3/$dim3[3])*100;
-$puntajetrans4= ($puntajebruto4/$dim4[3])*100;
-$puntajetrans5= ($puntajebruto5/$dim5[3])*100;
-$puntajetrans6= ($puntajebruto6/$dim6[3])*100;
-$puntajetrans7= ($puntajebruto7/$dim7[3])*100;
+$puntajetrans1= round(($puntajebruto1/$dim1[3])*100, 1);
+$puntajetrans2= round(($puntajebruto2/$dim2[3])*100, 1);
+$puntajetrans3= round(($puntajebruto3/$dim3[3])*100, 1);
+$puntajetrans4= round(($puntajebruto4/$dim4[3])*100, 1);
+$puntajetrans5= round(($puntajebruto5/$dim5[3])*100, 1);
+$puntajetrans6= round(($puntajebruto6/$dim6[3])*100, 1);
+$puntajetrans7= round(($puntajebruto7/$dim7[3])*100, 1);
 
 if($puntajetrans1>=$dim1[4] && $puntajetrans1<=$dim1[5]){
 	$riesgo1 = "Sin riesgo";
@@ -172,7 +172,7 @@ if($puntajetrans7>=$dim7[4] && $puntajetrans7<=$dim7[5]){
 $totalbruto = $puntajebruto1+$puntajebruto2+$puntajebruto3+$puntajebruto4+$puntajebruto5+$puntajebruto6+$puntajebruto7;
 
 $factor = mysqli_fetch_array($con -> query("SELECT * FROM normas where iddi=53"));
-$totaltrans= ($totalbruto/$factor[3])*100;
+$totaltrans= round(($totalbruto/$factor[3])*100, 1);
 
 if($totaltrans>=$factor[4] && $totaltrans<=$factor[5]){
 	$riesgototal = "Sin riesgo";

@@ -4,6 +4,7 @@
     $apellido = @$_POST['Apellido'];
     $numeropines = @$_POST['Pines'];
     $correo = @$_POST['Correo'];
+    $porcentaje_descuento = @$_POST['Porcentaje_descuento'];
     $tipo = 1;
     $nombrecompleto = $nombre." ".$apellido;
     $fecharegistro  = date("Y-m-d");
@@ -22,12 +23,13 @@
 
         $id_insertado = $con->insert_id;
 
-        $sql2="INSERT INTO `compra`(`pines`, `dia`, `mes`, `ano`, `precio`, `id_cliente`, `id_venta`) VALUES ($numeropines,$dia,$mes,$ano,$precio,$id_insertado,$id_venta)";
+        $sql2="INSERT INTO `compra`(`pines`, `dia`, `mes`, `ano`, `precio`, `id_cliente`, `id_venta`, `porcentaje_descuento`) VALUES ($numeropines,$dia,$mes,$ano,$precio,$id_insertado,$id_venta,$porcentaje_descuento)";
         $resultado2 =$con -> query($sql2);
 
         $resultado = array(
             'mensaje' => 'Cliente registrado correctamente!',
-            'codigo' => 1
+            'codigo' => 1,
+            'clave' => $clave
         );
         echo json_encode($resultado);
       

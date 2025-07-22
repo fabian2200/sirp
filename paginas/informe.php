@@ -20,37 +20,12 @@ if(($_SESSION['logueado']) == true){
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
-  <div class="modal fade" id="myModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Informe Sociodemografico</h4>
-          <button type="button" class="close" onclick="cerrarModal()">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-          <iframe id="iframe_modal" src="" width="100%" height="700px"></iframe>
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar <i class="fas fa-times"></i></button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
 <div class="container">
   <br>
-  <h2 style="text-align: center">Gestion de Informes</h2>
+  <h2 style="text-align: center">Gestión de Informes</h2>
   <hr>
   <div class="alert alert-danger" role="alert">
-    <strong>Importante!</strong> usted podra descargar <strong>3 veces</strong> el informe sociodemografico, y el informe general por departamento, de cada una de sus empresas.
+    <strong>¡Información importante!</strong> usted podra generar y descargar <strong>3 veces</strong> el informe sociodemografico, y el informe general por departamento, de cada una de sus empresas.
   </div>  
   <hr>          
   <table class="table table-bordered">
@@ -59,7 +34,7 @@ if(($_SESSION['logueado']) == true){
         <th style="text-align: center">Empresa</th>
         <th style="text-align: center">Individual</th>
         <th style="text-align: center">Sociodemografico</th>
-        <th style="text-align: center;" colspan="2" >Informe general  por departamento</th>
+        <th style="text-align: center;">Informe general  por departamento</th>
        
       </tr>
     </thead>
@@ -74,19 +49,19 @@ if(($_SESSION['logueado']) == true){
           <br>
           <br>
           <?php
-            if(($row[3]-$row[4])>0){
-               echo "Empleados asignados: <strong>".$row[3]."</strong> Empleados registrados: <strong>".$row[4]."</strong>";
+            if((($row[3]-$row[8])-($row[4]-$row[8]))>0){
+               echo "Empleados asignados: <strong>".($row[3]-$row[8])."</strong> Empleados registrados: <strong>".($row[4]-$row[8])."</strong>";
             }else{
-            $sql="SELECT * FROM `empleado` WHERE idempresa = $row[0]";
-            $resultado = $con -> query($sql);
-            $sql2="SELECT COUNT(*) FROM `empleado` WHERE idempresa = $row[0]";
-            $resultado2 = mysqli_fetch_array($con -> query($sql2));
-            $cont = 0;
-            while ($row2 = mysqli_fetch_array($resultado)) {
-              if ($row2[28]!=1 && $row2[35]!=1 && $row2[40]!=1 && $row2[42]!=1) {
-                $cont = $cont+1;
+              $sql="SELECT * FROM `empleado` WHERE idempresa = $row[0]";
+              $resultado = $con -> query($sql);
+              $sql2="SELECT COUNT(*) FROM `empleado` WHERE idempresa = $row[0]";
+              $resultado2 = mysqli_fetch_array($con -> query($sql2));
+              $cont = 0;
+              while ($row2 = mysqli_fetch_array($resultado)) {
+                if ($row2[28]!=1 && $row2[35]!=1 && $row2[40]!=1 && $row2[42]!=1) {
+                  $cont = $cont+1;
+                }
               }
-            }
               if ($cont==$resultado2[0]) {
                 if ($row[9]<3) {          
           ?>
@@ -99,9 +74,9 @@ if(($_SESSION['logueado']) == true){
               <p>Informes Generados: <strong><?php echo $row[9]; ?></strong></p>
           <?php     
               }else{
-                 echo "La empresa tiene empleados a los que todavia no se les ha aplicado algun test."; 
+                 echo "Faltan empleados por aplicar algún test"; 
               }
-          }
+            }
           ?>
         </td>
         <td style="text-align: center"> 
@@ -109,32 +84,27 @@ if(($_SESSION['logueado']) == true){
           <?php 
               
             $departamentos = $con->query("SELECT e.areatrabajo,d.nombre,COUNT(*) FROM `empleado` e INNER JOIN departamentos d ON e.areatrabajo = d.iddepto WHERE e.idempresa=$row[0] GROUP BY e.areatrabajo");
-
-            while ($rowd = mysqli_fetch_array($departamentos)) { 
-              $cantidadgenerada = $con->query("SELECT COUNT(*),`nombre_archivo` FROM `informe_general` WHERE id_departamento = $rowd[0] and id_empresa = $row[0] GROUP BY id_departamento, id_empresa, nombre_archivo");
+            $sql="SELECT * FROM `empleado` WHERE idempresa = $row[0]";
+            $resultado = $con -> query($sql);
+            $sql2="SELECT COUNT(*) FROM `empleado` WHERE idempresa = $row[0]";
+            $resultado2 = mysqli_fetch_array($con -> query($sql2));
+            $cont = 0;
+            while ($row2 = mysqli_fetch_array($resultado)) {
+              if ($row2[28]!=1 && $row2[35]!=1 && $row2[40]!=1 && $row2[42]!=1) {
+                $cont = $cont+1;
+              }
+            }
+            if ($cont==$resultado2[0]) {
+              while ($rowd = mysqli_fetch_array($departamentos)) { 
           ?>
-               <hr>
-               <a class="btn btn-info" href="../reporte_general/intermedio.php?dpto=<?php echo $rowd[0] ?>&empr=<?php echo $row[0] ?>&idcli=<?php echo $id ?>" ><span><i class="fa fa-caret-right" aria-hidden="true"></i> </span><?php echo $rowd[1];?></a><br>
-               <br>
+            <hr>
+            <a class="btn btn-info" href="../reporte_general/intermedio.php?dpto=<?php echo $rowd[0] ?>&empr=<?php echo $row[0] ?>&idcli=<?php echo $id ?>" ><span><i class="fa fa-caret-right" aria-hidden="true"></i> </span><?php echo $rowd[1];?></a>
          <?php  
-              
-            }   
+              }  
+            }else{
+              echo "Faltan empleados por aplicar algún test"; 
+            }
           ?>
-        </td>
-        <td style="text-align: center">
-            <strong>Descargar</strong><br><br>
-          <?php  
-               $departamentos = $con->query("SELECT e.areatrabajo,d.nombre,COUNT(*) FROM `empleado` e INNER JOIN departamentos d ON e.areatrabajo = d.iddepto WHERE e.idempresa=$row[0] GROUP BY e.areatrabajo");
-
-                while ($rowd = mysqli_fetch_array($departamentos)) { 
-                  $cantidadgenerada = $con->query("SELECT COUNT(*),`nombre_archivo` FROM `informe_general` WHERE id_departamento = $rowd[0] and id_empresa = $row[0] GROUP BY id_departamento, id_empresa, nombre_archivo");
-                  if ($cantidadgenerada->num_rows > 0) {
-          ?> 
-                  <a download  class="btn btn-success" href="../reporte_general/archivos/<?php echo $_SESSION['nombre']; ?>/<?php echo $row[2] ?>/<?php echo $cantidadgenerada->fetch_assoc()['nombre_archivo']; ?>"><i class="fa fa-download"></i> <?php echo $rowd[1]; ?></a><br><br>
-          <?php 
-                 }
-               }
-           ?> 
         </td>
       </tr>
       <?php  
@@ -150,16 +120,10 @@ if(($_SESSION['logueado']) == true){
 </div>
 <script>
   function cambiar_ruta_iframe(id_emp, id_cli) {
-    document.getElementById('iframe_modal').src = '../reporte_sociodemografico/sociodemografico.php?id_emp='+id_emp+'&id_cli='+id_cli;
-  }
-</script>
-
-<script>
-  function cerrarModal(){
-    $('#myModal').modal('hide');
-    setTimeout(function(){
+   window.open('../reporte_sociodemografico/sociodemografico.php?id_emp='+id_emp+'&id_cli='+id_cli, '_blank');
+   setTimeout(function(){
       window.location.reload();
-    }, 1000);
+    }, 1500);
   }
 </script>
 </body>
@@ -167,6 +131,7 @@ if(($_SESSION['logueado']) == true){
 
 <?php
 }else{  
+  header("Location: ../index.php");
   exit();
 }
 ?>

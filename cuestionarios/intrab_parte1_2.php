@@ -407,6 +407,7 @@ if(($_SESSION['logueado']) == true){
 </html>
 <?php
 }else{  
+  header("Location: ../index.php");
   exit();
 }
 ?>

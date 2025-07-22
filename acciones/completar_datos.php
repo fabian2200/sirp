@@ -16,17 +16,19 @@
     
     if($resultado)
     {
-     echo "<script>
-               alert('datos guardados correctamente, actualice la pagina para que le salgan las opciones del menu!');
-               window.location= '../paginas/empresas.php'
-           </script>";
+     echo  json_encode(array(
+        'mensaje' => 'Se ha actualizado su información, por favor actualice la pagina para que le salgan las opciones del menú!',
+        'codigo' => 1,
+        'url' => 'paginas/empresas.php'
+     ));
      
     }
     else
     {
-          echo "<script>
-                       alert('ha ocurrido un error');
-                </script>";
+      echo  json_encode(array(
+        'titulo' => '¡Ha ocurrido un error!',
+        'mensaje' => 'No se pudo actualizar su información, por favor intente nuevamente mas tarde.',
+        'codigo' => 0,
+      ));
     }
-    
 ?>
