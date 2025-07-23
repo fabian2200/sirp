@@ -3,8 +3,7 @@ require __DIR__ . '/vendor/autoload.php'; // Carga automática de Composer
 
 $tipo_correo = $_POST['tipo_correo'];
 
-
-$url_login = "https://www.institutocolombianodepsicometria.com/sirp/index.php";
+$url_login = "https://sqrncqcc.lucusvirtual.es/sirp/index.php";
 
 
 use PHPMailer\PHPMailer\PHPMailer;

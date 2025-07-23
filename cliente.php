@@ -13,7 +13,7 @@ if(($_SESSION['logueado']) == true){ ?>
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SIRP V.2</title>
+  <title>SIRP V.3</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,7 +37,7 @@ if(($_SESSION['logueado']) == true){ ?>
         <div class="sidebar-brand-icon rotate-n-15">
          <i class="fa fa-copyright" aria-hidden="true"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SIRP V.2</div>
+        <div class="sidebar-brand-text mx-3">SIRP V.3</div>
       </a>
 
       <!-- Divider -->
@@ -85,12 +85,13 @@ if(($_SESSION['logueado']) == true){ ?>
          <span><i class="fa fa-file-text" aria-hidden="true"></i></span> Informes</a>
       </li>
       <!-- Divider -->
+      <!--
       <hr class="sidebar-divider">
-
        <li class="nav-item text-center">
         <a class="nav-link" href="paginas/informe-tabla.php" target="iframe_a">
          <span><i class="fa fa-file-excel-o" aria-hidden="true"></i></span> Informe Tipo Tabla</a>
       </li>
+      -->
       <?php 
             }
       ?>
@@ -215,7 +216,7 @@ if(!empty($datos)){
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; ICP V2.0 <script>document.write(new Date().getFullYear());</script></span>
+            <span>Copyright &copy; ICP V3.0 <script>document.write(new Date().getFullYear());</script></span>
           </div>
         </div>
       </footer>
@@ -237,15 +238,15 @@ if(!empty($datos)){
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Esta seguro?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">¿Está seguro?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="cerrar.php">Salir</a>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar <i class="fas fa-times"></i></button>
+          <a class="btn btn-primary" href="cerrar.php">Salir <i class="fas fa-sign-out-alt"></i></a>
         </div>
       </div>
     </div>

@@ -68,7 +68,7 @@ if(($_SESSION['logueado']) == true){
       <br>
       <br>
       <div class="alert alert-primary" role="alert">
-        <strong>Para descargar el formato de instrucciones <br> y el formato excel de empleados, haga click en el siguiente enlace:</strong> <a href="empleados.zip"><i class="fa fa-file-archive-o" aria-hidden="true"></i><span> Descargar</span></a>
+        <strong>Para descargar el formato de instrucciones <br> y el formato excel de empleados, haga click en el siguiente enlace:</strong> <a download href="../material_cargar_empleados.rar"><i class="fa fa-file-archive-o" aria-hidden="true"></i><span> Descargar</span></a>
       </div>
     </div> 
     <?php

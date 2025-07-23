@@ -127,6 +127,7 @@ $con -> query($sql3);
                 font-family: Arial, sans-serif;
                 font-size: 11pt !important;
                 padding: 0;
+                box-shadow: none;
             }
 
             .contenido {
