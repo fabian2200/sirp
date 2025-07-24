@@ -73,6 +73,7 @@ if(($_SESSION['logueado']) == true){
     </div> 
     <?php
       } else {
+        if($resultado[3] - $resultado[4] > 0){
     ?>
     <br>
     <div class="row">
@@ -88,10 +89,11 @@ if(($_SESSION['logueado']) == true){
       </div>
       </div>
       <br>
+      <hr>
     <?php
+        }
       }
     ?>
-    <hr>
     <div class="text-center"><h2>Estado de los cuestionarios</h2></div>
     <br>
 <div class="container">

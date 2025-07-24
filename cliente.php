@@ -30,7 +30,7 @@ if(($_SESSION['logueado']) == true){ ?>
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="position: fixed; z-index: 10; width: 16vw !important;">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="cliente.php">
@@ -108,13 +108,13 @@ if(($_SESSION['logueado']) == true){ ?>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper" class="d-flex flex-column" style="margin-left: 16vw;">
 
       <!-- Main Content -->
       <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" style="position: fixed; width: 84vw !important;">
 
           <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -175,38 +175,36 @@ if(($_SESSION['logueado']) == true){ ?>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid" style="margin-top: 90px;">
 
-       </nav>
+          <!--===============================================================================================-->
+                
+          <script language="JavaScript">
+          //Ajusta el tamaño de un iframe al de su contenido interior para evitar scroll
+                    function autofitIframe(id){
+                      if (!window.opera && document.all && document.getElementById){
+                      id.style.height=id.contentWindow.document.body.scrollHeight;
+                      } else if(document.getElementById) {
+                      id.style.height=id.contentDocument.body.scrollHeight+"px";
+                      }
+                    }
+          </script>
+          <!--===============================================================================================-->
 
-<!--===============================================================================================-->
-      
-<script language="JavaScript">
-//Ajusta el tamaño de un iframe al de su contenido interior para evitar scroll
-          function autofitIframe(id){
-             if (!window.opera && document.all && document.getElementById){
-            id.style.height=id.contentWindow.document.body.scrollHeight;
-            } else if(document.getElementById) {
-             id.style.height=id.contentDocument.body.scrollHeight+"px";
-             }
+          <?php 
+          $id =  $_SESSION['id'];
+          $datos=  mysqli_fetch_array($con->query("SELECT * FROM cliente where idcl = $id and infcompletada = 0"));
+          $ruta = "paginas/empresas.php";
+          if(!empty($datos)){
+          $ruta = "completar_datos.php";
           }
-</script>
-<!--===============================================================================================-->
 
-<?php 
-$id =  $_SESSION['id'];
-$datos=  mysqli_fetch_array($con->query("SELECT * FROM cliente where idcl = $id and infcompletada = 0"));
-$ruta = "paginas/empresas.php";
-if(!empty($datos)){
- $ruta = "completar_datos.php";
-}
-
-?>
-<!--===============================================================================================-->
-<iframe height="300px" width="100%" src="<?php echo $ruta ?>" name="iframe_a" style="border: none;" scrolling="no" onload="autofitIframe(this);">
-          <img src="https://cdn.semanariolacalle.com/2018/08/Ministerio-de-Educaci%C3%B3n-Nacional-otorga-registro-calificado-a-primera-Maestr%C3%ADa-propia-a-la-UPC.-1024x681.jpg" alt="">
-</iframe>
-</div>
+          ?>
+          <!--===============================================================================================-->
+          <iframe height="300px" width="100%" src="<?php echo $ruta ?>" name="iframe_a" style="border: none;" scrolling="no" onload="autofitIframe(this);">
+                    <img src="https://cdn.semanariolacalle.com/2018/08/Ministerio-de-Educaci%C3%B3n-Nacional-otorga-registro-calificado-a-primera-Maestr%C3%ADa-propia-a-la-UPC.-1024x681.jpg" alt="">
+          </iframe>
+          </div>
         <!-- /.container-fluid -->
 
       </div>

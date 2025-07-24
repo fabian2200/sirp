@@ -11,7 +11,7 @@ CREATE TABLE `calificacion` (
   `tipo_examen` int NOT NULL,
   `iddepartamento` int NOT NULL,
   PRIMARY KEY (`idca`)
-) ENGINE=MyISAM AUTO_INCREMENT=1444 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=1477 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 /*Data for the table `calificacion` */
 
@@ -330,7 +330,40 @@ insert  into `calificacion`(`idca`,`idempresa`,`idempleado`,`iddimension`,`punta
 (1430,1,44,44,6,37.5,'Muy alto',2,519),
 (1431,1,44,45,11,45.8,'Muy alto',2,519),
 (1432,1,44,43,17,42.5,'Muy alto',2,519),
-(1433,1,44,56,162,41.8,'Muy alto',2,519);
+(1433,1,44,56,162,41.8,'Muy alto',2,519),
+(1444,1,45,2,18,34.6,'Alto',1,519),
+(1445,1,45,3,16,28.6,'Alto',1,519),
+(1446,1,45,4,3,15,'Bajo',1,519),
+(1447,1,45,5,13,36.1,'Alto',1,519),
+(1448,1,45,1,50,30.5,'Alto',1,519),
+(1449,1,45,7,8,28.6,'Alto',1,519),
+(1450,1,45,8,7,58.3,'Muy alto',1,519),
+(1451,1,45,9,8,50,'Alto',1,519),
+(1452,1,45,10,5,31.3,'Alto',1,519),
+(1453,1,45,12,6,50,'Alto',1,519),
+(1454,1,45,6,34,40.5,'Alto',1,519),
+(1455,1,45,14,26,54.2,'Muy alto',1,519),
+(1456,1,45,15,0,0,'Sin riesgo',1,519),
+(1457,1,45,16,14,58.3,'Muy alto',1,519),
+(1458,1,45,17,13,81.3,'Muy alto',1,519),
+(1459,1,45,18,15,62.5,'Medio',1,519),
+(1460,1,45,19,12,60,'Sin riesgo',1,519),
+(1461,1,45,20,11,55,'Muy alto',1,519),
+(1462,1,45,21,6,50,'Alto',1,519),
+(1463,1,45,13,97,48.5,'Muy alto',1,519),
+(1464,1,45,23,7,35,'Muy alto',1,519),
+(1465,1,45,24,7,29.2,'Alto',1,519),
+(1466,1,45,22,14,31.8,'Muy alto',1,519),
+(1467,1,45,55,195,39.6,'Muy alto',1,519),
+(1468,1,45,46,4,25,'Bajo',3,519),
+(1469,1,45,47,2,16.7,'Bajo',3,519),
+(1470,1,45,48,3,15,'Medio',3,519),
+(1471,1,45,49,6,50,'Alto',3,519),
+(1472,1,45,50,15,41.7,'Muy alto',3,519),
+(1473,1,45,51,7,58.3,'Muy alto',3,519),
+(1474,1,45,52,6,37.5,'Alto',3,519),
+(1475,1,45,53,43,34.7,'Muy alto',3,519),
+(1476,1,45,54,42.8,70,'Muy alto',4,519);
 
 /*Table structure for table `cliente` */
 
@@ -361,8 +394,7 @@ CREATE TABLE `cliente` (
 
 insert  into `cliente`(`idcl`,`nombre`,`fecharegistro`,`estatus`,`usuario`,`clave`,`pines`,`pinesdisp`,`nroidcc`,`profesion`,`postgrado`,`nrotarjprof`,`nrolicprof`,`fechexp`,`celular`,`infcompletada`) values 
 (1,'AMS','2020-08-22',0,'ams@gmail.com','81dc9bdb52d04dc20036dbd8313ed055',0,0,'0','0','0','0','0','2020-08-22','0',0),
-(118,'Fabian  Quintero','2025-06-27',1,'grovveip@gmail.com','81dc9bdb52d04dc20036dbd8313ed055',120,80,'10046553','Des software','no','543435345','345345345345','2025-01-21','3042065930',1),
-(127,'xxx yyy','2025-07-22',1,'xxx@gmail.com','1848ebfc0e21d49cccb49833a85e90ea',10,10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0);
+(118,'Fabian  Quintero','2025-06-27',1,'grovveip@gmail.com','81dc9bdb52d04dc20036dbd8313ed055',120,108,'10046553','Des software','Si','543435345','345345345345','2024-01-16','3042065930',1);
 
 /*Table structure for table `compra` */
 
@@ -385,8 +417,7 @@ CREATE TABLE `compra` (
 
 insert  into `compra`(`id`,`pines`,`precio`,`dia`,`mes`,`ano`,`id_venta`,`id_cliente`,`porcentaje_descuento`) values 
 (166,20,40000,27,6,2025,'1111',118,0),
-(184,100,10000,1,7,2025,'1111',118,0),
-(187,10,10000,22,7,2025,'1111',127,5);
+(184,100,10000,1,7,2025,'1111',118,0);
 
 /*Table structure for table `departamentos` */
 
@@ -461,7 +492,7 @@ CREATE TABLE `empleado` (
   `step0t4` int DEFAULT '0',
   `correo` text COLLATE utf8mb3_unicode_ci,
   PRIMARY KEY (`idus`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 /*Data for the table `empleado` */
 
@@ -487,7 +518,8 @@ insert  into `empleado`(`idus`,`idcl`,`idempresa`,`empresa`,`nombre`,`sexo`,`est
 (40,118,3,'DAZN','Braulio',1,6,'1994-06-15','7','desarrollador','Cesar','Valledupar','5','3',5,'Cesar','valledupar',4,'Empleado','4',4,'519','2',5,'2','2025-07-05','2025-07-05',0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,'persona6@gmail.com'),
 (41,118,1,'CocaCola','Xiamir',2,1,'1995-12-12','10','Des software','Amazonas','Valledupar','1','1',5,'Amazonas','Valledupar',5,'Desarrollador','1',5,'519','6',5,'3','2025-07-07','2025-07-07',0,0,0,0,0,0,0,0,2,1,1,1,1,2,1,2,1,'x@gmail.com'),
 (43,118,1,'CocaCola','hdhgsdfg fdgsdfg',1,1,'1978-01-22','6','Des software','Amazonas','Valledupar','1','1',3,'Amazonas','Valledupar',3,'Desarrollador','1',3,'527','1',3,'1','2025-07-16','2025-07-16',0,0,0,0,0,0,0,0,2,1,1,1,1,2,1,2,1,'sdfgsdfg@gmail.com'),
-(44,118,1,'CocaCola','sdfsdf',1,1,'1998-12-12','2','Des software','Amazonas','Valledupar','1','1',3,'Amazonas','Valledupar',34,'Desarrollador','2',33,'519','1',43,'1','2025-07-16','2025-07-16',0,0,0,0,0,0,0,0,2,1,1,1,1,2,1,2,1,'sdfsdaf@gmail.com');
+(44,118,1,'CocaCola','sdfsdf',1,1,'1998-12-12','2','Des software','Amazonas','Valledupar','1','1',3,'Amazonas','Valledupar',34,'Desarrollador','2',33,'519','1',43,'1','2025-07-16','2025-07-16',0,0,0,0,0,0,0,0,2,1,1,1,1,2,1,2,1,'sdfsdaf@gmail.com'),
+(45,118,1,'CocaCola','Westcol',1,1,'1987-01-22','3','Des software','Amazonas','Valledupar','1','1',3,'Amazonas','Valledupar',3,'Desarrollador','1',3,'519','2',3,'1','2025-07-24','2025-07-24',0,2,1,1,1,1,1,1,0,0,0,0,0,2,1,2,1,'wes@gmail.com');
 
 /*Table structure for table `empresa` */
 
@@ -511,10 +543,7 @@ CREATE TABLE `empresa` (
 /*Data for the table `empresa` */
 
 insert  into `empresa`(`idem`,`idcl`,`empresa`,`nrousuarios`,`pinesusados`,`fecha`,`token`,`descargado`,`borrados`,`sociodemografico`,`descargados`) values 
-(1,118,'CocaCola',11,11,'2025-06-27','CocaCola_118','2025-06-27',1,2,0),
-(2,118,'Nissan',6,6,'2025-06-27','Nissan_118',NULL,0,0,0),
-(3,118,'DAZN',6,6,'2025-07-05','DAZN_118',NULL,0,0,0),
-(4,118,'Empresa 2',17,0,'2025-07-05','Empresa 2_118',NULL,0,0,0);
+(1,118,'CocaCola',12,12,'2025-06-27','CocaCola_118','2025-06-27',1,0,0);
 
 /*Table structure for table `estres` */
 
@@ -555,7 +584,7 @@ CREATE TABLE `estres` (
   `preg31` int NOT NULL,
   `id_empl` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
 
 /*Data for the table `estres` */
 
@@ -579,7 +608,8 @@ insert  into `estres`(`id`,`preg1`,`preg2`,`preg3`,`preg4`,`preg5`,`preg6`,`preg
 (56,3,9,6,4,2,2,1,2,3,4,2,2,9,3,6,6,6,4,2,3,1,3,3,9,6,4,4,0,3,3,2,6),
 (57,3,0,0,0,2,0,2,3,6,4,4,2,3,3,3,2,6,4,4,2,2,3,6,3,4,2,2,4,1,3,2,5),
 (58,6,9,3,6,2,4,3,1,6,4,2,2,3,9,6,4,6,2,4,3,1,1,3,6,4,6,6,0,1,2,2,4),
-(59,6,6,3,2,4,6,2,2,6,4,4,1,6,6,3,2,0,4,0,1,2,3,9,3,4,0,6,2,2,2,1,3);
+(59,6,6,3,2,4,6,2,2,6,4,4,1,6,6,3,2,0,4,0,1,2,3,9,3,4,0,6,2,2,2,1,3),
+(60,6,9,6,6,4,4,2,1,6,2,2,3,0,9,9,6,6,4,6,1,1,3,9,9,6,4,4,6,3,2,2,45);
 
 /*Table structure for table `extralaboral` */
 
@@ -620,11 +650,12 @@ CREATE TABLE `extralaboral` (
   `preg31` int NOT NULL,
   `id_empl` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 /*Data for the table `extralaboral` */
 
 insert  into `extralaboral`(`id`,`preg1`,`preg2`,`preg3`,`preg4`,`preg5`,`preg6`,`preg7`,`preg8`,`preg9`,`preg10`,`preg11`,`preg12`,`preg13`,`preg14`,`preg15`,`preg16`,`preg17`,`preg18`,`preg19`,`preg20`,`preg21`,`preg22`,`preg23`,`preg24`,`preg25`,`preg26`,`preg27`,`preg28`,`preg29`,`preg30`,`preg31`,`id_empl`) values 
+(48,1,0,1,4,0,3,1,2,4,4,1,0,0,0,2,3,0,0,0,1,2,1,0,3,0,2,1,2,0,4,2,45),
 (47,4,0,4,4,0,3,1,2,0,4,0,1,1,2,1,1,4,4,2,0,1,1,2,4,0,1,0,0,1,3,2,44),
 (46,3,2,2,1,1,2,0,1,2,1,1,1,1,0,0,1,1,2,0,2,2,2,4,3,1,4,1,0,1,3,1,43),
 (45,1,4,1,1,2,2,2,1,2,3,3,2,3,2,3,0,0,1,2,2,3,3,4,3,4,4,4,0,0,2,3,3),
@@ -648,13 +679,9 @@ CREATE TABLE `informe_general` (
   `tipo_informe` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `fecha` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 /*Data for the table `informe_general` */
-
-insert  into `informe_general`(`id`,`id_empresa`,`id_cliente`,`id_departamento`,`tipo_informe`,`fecha`) values 
-(21,1,118,519,'B','2025-07-18'),
-(20,1,118,519,'A','2025-07-18');
 
 /*Table structure for table `informe_tabla` */
 
@@ -802,11 +829,12 @@ CREATE TABLE `intra_a` (
   `preg123` int DEFAULT '0',
   `id_empl` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 /*Data for the table `intra_a` */
 
 insert  into `intra_a`(`id`,`preg1`,`preg2`,`preg3`,`preg4`,`preg5`,`preg6`,`preg7`,`preg8`,`preg9`,`preg10`,`preg11`,`preg12`,`preg13`,`preg14`,`preg15`,`preg16`,`preg17`,`preg18`,`preg19`,`preg20`,`preg21`,`preg22`,`preg23`,`preg24`,`preg25`,`preg26`,`preg27`,`preg28`,`preg29`,`preg30`,`preg31`,`preg32`,`preg33`,`preg34`,`preg35`,`preg36`,`preg37`,`preg38`,`preg39`,`preg40`,`preg41`,`preg42`,`preg43`,`preg44`,`preg45`,`preg46`,`preg47`,`preg48`,`preg49`,`preg50`,`preg51`,`preg52`,`preg53`,`preg54`,`preg55`,`preg56`,`preg57`,`preg58`,`preg59`,`preg60`,`preg61`,`preg62`,`preg63`,`preg64`,`preg65`,`preg66`,`preg67`,`preg68`,`preg69`,`preg70`,`preg71`,`preg72`,`preg73`,`preg74`,`preg75`,`preg76`,`preg77`,`preg78`,`preg79`,`preg80`,`preg81`,`preg82`,`preg83`,`preg84`,`preg85`,`preg86`,`preg87`,`preg88`,`preg89`,`preg90`,`preg91`,`preg92`,`preg93`,`preg94`,`preg95`,`preg96`,`preg97`,`preg98`,`preg99`,`preg100`,`preg101`,`preg102`,`preg103`,`preg104`,`preg105`,`preg106`,`preg107`,`preg108`,`preg109`,`preg110`,`preg111`,`preg112`,`preg113`,`preg114`,`preg115`,`preg116`,`preg117`,`preg118`,`preg119`,`preg120`,`preg121`,`preg122`,`preg123`,`id_empl`) values 
+(23,4,3,2,1,1,1,3,2,2,2,2,3,4,3,3,3,2,2,0,3,2,2,4,3,3,3,2,2,3,4,2,2,4,0,4,3,4,2,2,1,0,2,1,2,4,0,1,1,1,2,4,0,2,0,3,1,1,0,1,4,2,1,1,1,1,1,2,2,2,0,1,4,1,1,1,2,1,1,1,0,2,0,0,0,3,2,0,0,4,2,1,0,0,0,0,1,0,1,2,2,1,4,1,0,2,0,0,0,0,0,0,0,0,0,0,0,3,3,2,1,1,3,0,45),
 (22,0,0,4,1,3,4,4,3,1,2,3,1,2,1,0,4,2,0,0,4,0,0,2,3,4,0,2,3,3,1,0,3,2,2,1,3,3,0,4,1,4,4,1,1,4,4,3,3,4,4,3,4,1,3,0,4,2,2,0,4,2,2,3,1,4,0,0,2,1,2,1,1,2,2,1,1,1,1,2,3,0,1,3,0,4,0,4,4,1,2,0,1,0,2,2,2,1,0,2,2,1,1,1,0,2,3,1,3,2,3,3,4,2,3,0,1,2,0,3,0,0,2,1,3),
 (21,4,0,3,2,1,2,2,4,0,3,2,1,0,1,2,2,2,0,0,1,3,3,3,4,0,2,4,2,4,2,0,2,0,1,3,2,2,3,0,2,0,0,0,2,0,4,1,0,1,1,0,0,4,1,4,0,1,1,0,0,2,0,4,0,0,3,2,1,0,1,2,3,1,1,1,2,1,4,1,4,4,1,4,4,2,0,0,1,1,2,1,4,1,0,1,2,0,1,0,2,2,0,2,0,1,0,0,1,3,4,2,3,3,3,0,0,0,0,0,0,0,0,0,4),
 (20,4,2,3,1,3,3,3,4,1,2,3,2,2,1,3,3,0,2,2,4,3,3,3,3,2,3,2,3,2,2,1,3,4,0,0,2,3,2,2,2,1,1,4,2,4,0,4,1,2,3,2,2,4,1,2,2,2,1,1,0,1,2,2,4,3,0,0,0,0,0,0,1,2,1,1,3,0,1,2,2,2,2,4,0,2,2,0,2,2,2,0,1,0,2,3,2,1,2,2,0,1,1,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6),
@@ -1023,13 +1051,12 @@ CREATE TABLE `paquetes` (
   `total` double DEFAULT NULL,
   `descuento` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 /*Data for the table `paquetes` */
 
 insert  into `paquetes`(`id`,`nombre`,`numero_pines`,`precio_pin`,`subtotal`,`total`,`descuento`) values 
-(4,'Paquete Bronce','50','15600',780000,700000,10),
-(5,'Paquete Silver','100','13330',1200000,1333000,10),
-(6,'Paquete Gold','200','12220',2444000,2200000,10),
-(11,'Paquete Platino','500','11111',5555500,5000000,10),
-(13,'Paquete Prueba','1','4000',4000,2000,50);
+(14,'Paquete Plata','150','5000',750000,712500,5),
+(15,'Paquete Oro','300','5000',1500000,1350000,10),
+(16,'Paquete bronze','75','5500',412500,400125,3),
+(18,'Paquete de prueba','10','400',4000,2000,50);

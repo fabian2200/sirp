@@ -30,12 +30,11 @@ if(($_SESSION['logueado']) == true){
   <hr>          
   <table class="table table-bordered">
     <thead>
-      <tr>
+      <tr style="background-color: #007bff; color: white;">
         <th style="text-align: center">Empresa</th>
         <th style="text-align: center">Individual</th>
-        <th style="text-align: center">Sociodemografico</th>
-        <th style="text-align: center;">Informe general  por departamento</th>
-       
+        <th style="text-align: center">Generar Informe Sociodemográfico</th>
+        <th style="text-align: center;">Generar Informe por Departamento</th>
       </tr>
     </thead>
     <tbody>
@@ -43,14 +42,12 @@ if(($_SESSION['logueado']) == true){
         while ($row = mysqli_fetch_array($resultado4)) {
       ?>
       <tr>
-        <td style="text-align: center"><br><br><a class="btn btn-info disabled"><?php echo $row[2] ?></a></td>
-        <td style="text-align: center"><br><br><a class="btn btn-info" href="ver_empleados.php?idempr=<?php echo $row[0] ?>"><span><i class="fa fa-external-link" aria-hidden="true"></i></span> Gestionar</a></td>
-        <td style="text-align: center">
-          <br>
-          <br>
+        <td style="text-align: center; vertical-align: middle;"><a class="btn btn-info disabled"><?php echo $row[2] ?></a></td>
+        <td style="text-align: center; vertical-align: middle;"><a class="btn btn-info" href="ver_empleados.php?idempr=<?php echo $row[0] ?>"><span><i class="fa fa-external-link" aria-hidden="true"></i></span> Gestionar</a></td>
+        <td style="text-align: center; vertical-align: middle;">
           <?php
             if((($row[3]-$row[8])-($row[4]-$row[8]))>0){
-               echo "Empleados asignados: <strong>".($row[3]-$row[8])."</strong> Empleados registrados: <strong>".($row[4]-$row[8])."</strong>";
+               echo "Gestione la información de todos los empleados de la empresa para generar el informe sociodemografico";
             }else{
               $sql="SELECT * FROM `empleado` WHERE idempresa = $row[0]";
               $resultado = $con -> query($sql);
@@ -70,19 +67,16 @@ if(($_SESSION['logueado']) == true){
                } 
               
           ?>
-             <br>
               <p>Informes Generados: <strong><?php echo $row[9]; ?></strong></p>
           <?php     
               }else{
-                 echo "Faltan empleados por aplicar algún test"; 
+                 echo "Gestione la información de todos los empleados de la empresa para generar el informe sociodemografico"; 
               }
             }
           ?>
         </td>
-        <td style="text-align: center"> 
-          <strong>Generar</strong><br>
+        <td style="text-align: center; vertical-align: middle;"> 
           <?php 
-              
             $departamentos = $con->query("SELECT e.areatrabajo,d.nombre,COUNT(*) FROM `empleado` e INNER JOIN departamentos d ON e.areatrabajo = d.iddepto WHERE e.idempresa=$row[0] GROUP BY e.areatrabajo");
             $sql="SELECT * FROM `empleado` WHERE idempresa = $row[0]";
             $resultado = $con -> query($sql);
@@ -94,15 +88,14 @@ if(($_SESSION['logueado']) == true){
                 $cont = $cont+1;
               }
             }
-            if ($cont==$resultado2[0]) {
+            if ($cont==$resultado2[0] && $resultado2[0] !=  0) {
               while ($rowd = mysqli_fetch_array($departamentos)) { 
           ?>
-            <hr>
-            <a class="btn btn-info" href="../reporte_general/intermedio.php?dpto=<?php echo $rowd[0] ?>&empr=<?php echo $row[0] ?>&idcli=<?php echo $id ?>" ><span><i class="fa fa-caret-right" aria-hidden="true"></i> </span><?php echo $rowd[1];?></a>
+              <a style="margin-bottom: 20px; width: 80%; text-transform: capitalize;" class="btn btn-info" href="../reporte_general/intermedio.php?dpto=<?php echo $rowd[0] ?>&empr=<?php echo $row[0] ?>&idcli=<?php echo $id ?>" ><span><i class="fa fa-caret-right" aria-hidden="true"></i> </span><?php echo $rowd[1];?></a>
          <?php  
               }  
             }else{
-              echo "Faltan empleados por aplicar algún test"; 
+              echo "Gestione la información de todos los empleados de la empresa para generar el informe por departamento"; 
             }
           ?>
         </td>
@@ -113,9 +106,9 @@ if(($_SESSION['logueado']) == true){
     </tbody>
   </table>
   <br>
-  <hr>
-   <p>Atencion: los informes por departamento y el sociodemografico se descargaran en formato PDF, si desea convertirlos a WORD haga click en el siguiente enlace:</p><a class="btn btn-danger" target="_blank" href="https://www.ilovepdf.com/es/pdf_a_word"><i class="fa fa-external-link" aria-hidden="true"></i><span>I love PDF</span></a>
-   <br>
+  <div class="alert alert-warning" role="alert">
+    <p style="font-weight: bold;">Atencion: los informes por departamento y el sociodemografico se descargaran en formato PDF, si desea convertirlos a WORD haga click en el siguiente enlace:</p><a class="btn btn-danger" target="_blank" href="https://www.ilovepdf.com/es/pdf_a_word"><i class="fa fa-external-link" aria-hidden="true"></i><span>I love PDF</span></a>
+  </div>  
   <hr>
 </div>
 <script>

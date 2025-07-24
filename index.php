@@ -55,8 +55,13 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row" >
-              <div class="col-lg-5" style="display: flex; justify-content:center; align-items:center;">
+              <div class="col-lg-5" style="display: flex; justify-content:center; align-items:center; flex-direction: column;">
                 <img src="logo.png" style="width: 270px; height: auto;">
+                <br>
+                <div style="display: flex; justify-content:center; align-items:center; background-color:rgba(187, 204, 255, 0.81); padding: 10px; border-radius: 10px; width: 60%; margin-left: 70px;">
+                  <img src="icono-icp.png" style="width: 50px; height: auto;">
+                  <p style="margin-bottom: 0px; font-size: 12px; font-weight: 600; color:rgb(79, 52, 180);">Instituto Colombiano <br> de Psicometría</p>
+                </div>
               </div>
               <div class="col-lg-7">
                 <div class="p-5">

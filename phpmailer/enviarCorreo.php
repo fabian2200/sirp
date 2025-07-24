@@ -3,7 +3,7 @@ require __DIR__ . '/vendor/autoload.php'; // Carga automática de Composer
 
 $tipo_correo = $_POST['tipo_correo'];
 
-$url_login = "https://sqrncqcc.lucusvirtual.es/sirp/index.php";
+$url_login = "https://sirp.icp360rh.com/index.php";
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -67,15 +67,15 @@ $mail = new PHPMailer();
 try {
     // Configuración del servidor SMTP
     $mail->isSMTP();
-    $mail->Host       = 'mail.sqrncqcc.lucusvirtual.es';         // Ej: smtp.gmail.com
+    $mail->Host       = 'mail.icp360rh.com';    
     $mail->SMTPAuth   = true;
-    $mail->Username   = '_mainaccount@sqrncqcc.lucusvirtual.es';          // Tu correo
-    $mail->Password   = 'Q6xZ17fnQ5hN@*';  // Contraseña o app password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // o ENCRYPTION_SMTPS
-    $mail->Port       = 587;                            // 465 para SMTPS
+    $mail->Username   = 'sirp@icp360rh.com';
+    $mail->Password   = 'sirp2025@';  
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
+    $mail->Port       = 587;
 
     // Remitente y destinatario
-    $mail->setFrom('_mainaccount@sqrncqcc.lucusvirtual.es', 'Instituto Colombiano de Psicometria');
+    $mail->setFrom('sirp@icp360rh.com', 'Instituto Colombiano de Psicometria');
     $mail->addAddress($usuario, $nombre);
 
     // Contenido

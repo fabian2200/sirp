@@ -152,11 +152,11 @@ if(($_SESSION['logueado']) == true){
   <table class="table table-striped" style="font-size: 13px">
     <thead>
       <tr>
-        <th>Nombre</th>
-        <th>#Empleados asignados</th>
-        <th>Emleados encuestados</th>
-        <th>Empleados Borrados</th>
-        <th>Pines disponibles</th>
+        <th style="text-align: center; vertical-align: middle; width: 20%;">Nombre</th>
+        <th style="text-align: center; vertical-align: middle;">Empleados asignados</th>
+        <th style="text-align: center; vertical-align: middle;">Emleados encuestados</th>
+        <th style="text-align: center; vertical-align: middle;">Empleados Borrados</th>
+        <th style="text-align: center; vertical-align: middle;">Pines disponibles</th>
         <th></th>
         <th></th>
         <th></th>
@@ -167,13 +167,15 @@ if(($_SESSION['logueado']) == true){
      while ($row = mysqli_fetch_array($resultado4)) {
     ?>
       <tr>
-        <td><a href="ver_empleados.php?idempr=<?php echo $row[0] ?>"><i class="fa fa-search-plus"></i><span> <?php echo $row[2]; ?></span></a></td>
-        <td><?php echo $row[3]; ?></td>
-        <td><?php echo $row[4]; ?></td>
-        <td><?php echo $row[8];?></td>
-        <td><?php echo $row[3]-$row[4]; ?></td>
+        <td style="text-align: center; vertical-align: middle;"><a class="btn btn-success" href="ver_empleados.php?idempr=<?php echo $row[0] ?>"><i class="fa fa-search-plus"></i><span> <?php echo $row[2]; ?></span></a></td>
+        <td style="text-align: center; vertical-align: middle;"><?php echo $row[3]; ?></td>
+        <td style="text-align: center; vertical-align: middle;"><?php echo $row[4]; ?></td>
+        <td style="text-align: center; vertical-align: middle;"><?php echo $row[8];?></td>
+        <td style="text-align: center; vertical-align: middle;"><?php echo $row[3]-$row[4]; ?></td>
           <td>
-          <a href="registrar_empleado.php?proceso=<?php echo $row[0] ?>" class="btn btn-success"> Registrar empleado</a></td>
+          <?php if($row[3] - $row[4] > 0){ ?>
+            <a href="registrar_empleado.php?proceso=<?php echo $row[0] ?>" class="btn btn-success"> Registrar empleado</a></td>
+          <?php } ?>
           <td>
           <button onclick="document.getElementById('id01').style.display='block';cambiaValores(<?php echo $row[0]; ?>)" class="btn btn-danger"> <span><i class="fa fa-minus-square" aria-hidden="true"></i></span> Disminuir #empleados</a></button></td>
           <td> 
