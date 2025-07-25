@@ -1,7 +1,7 @@
 <?php
     require_once '../conexion.php';
 
-    $sql = "SELECT * FROM paquetes";
+    $sql = "SELECT * FROM paquetes order by total DESC";
     $result = mysqli_query($con, $sql);
 
     $paquetes = array();

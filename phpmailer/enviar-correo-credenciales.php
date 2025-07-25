@@ -1,7 +1,6 @@
 <?php
+include ("../conexion.php");
 require __DIR__ . '/vendor/autoload.php'; // Carga automática de Composer
-
-$tipo_correo = $_POST['tipo_correo'];
 
 $url_login = "https://sirp.icp360rh.com/index.php";
 
@@ -9,19 +8,98 @@ $url_login = "https://sirp.icp360rh.com/index.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-if($tipo_correo == 'nueva_venta_admin'){
-    // Datos de la venta
-    $nombre = $_POST['nombre'];
-    $pines = $_POST['pines'];
-    $usuario = $_POST['usuario'];
-    $contrasena = $_POST['contrasena'];
-    $precio_pin = $_POST['precio_pin'];
-    $porcentaje_descuento = $_POST['porcentaje_descuento'];
+$input = json_decode(file_get_contents("php://input"), true);
 
-    $subtotal = $precio_pin * $pines;
-    $total_pagar = $subtotal - ($subtotal * ($porcentaje_descuento / 100));
+$nombrecompleto = $input['nombres'] . ' ' . $input['apellidos'];
+$cedula = $input['cedula'];
+$correo = $input['correo'];
+$pines_comprados = $input['pines_comprados'];
+$precio_pin = $input['precio_pin'];
+$fecha = DateTime::createFromFormat('d-m-Y H:i:s', $input['fecha']);
+$total = $input['total'];
+$orden = $input['orden'];
+
+
+$fecha_format = $fecha->format('Y-m-d');
+$dia = $fecha->format('d');
+$mes = $fecha->format('m');
+$ano = $fecha->format('Y');
+
+$precio_normal = $pines_comprados * $precio_pin;
+$porcentaje_descuento = (($precio_normal - $total) / $precio_normal) * 100;
+
+$clave = substr(md5(uniqid()), 0, 10);
+$clave_encriptada = md5($clave);
+
+$hay_cliente = $con->query("SELECT * FROM cliente WHERE nroidcc = '$cedula'")->fetch_assoc();
+if(!$hay_cliente){
+    $con -> query("INSERT INTO cliente (
+        nombre,
+        fecharegistro,
+        estatus,
+        usuario,
+        clave,
+        pines,
+        pinesdisp,
+        nroidcc
+    ) values(
+       '$nombrecompleto',
+       '$fecha_format',
+       1,
+       '$correo',
+       '$clave_encriptada',
+       $pines_comprados,
+       $pines_comprados,
+       $cedula
+    )");
+
+    $id_cliente = $con->insert_id;
+    $hay_cliente = false;
+}else{
+    $id_cliente = $con->query("SELECT idcl FROM cliente WHERE nroidcc=$cedula")->fetch_assoc()['idcl'];
+    $con -> query("UPDATE `cliente` SET 
+        `pines`= pines+$pines_comprados, 
+        `pinesdisp` = pinesdisp+$pines_comprados 
+        WHERE idcl=$id_cliente"
+    );
+    $hay_cliente = true;
+}
+
+
+$con -> query("INSERT INTO `compra`(
+    `pines`,
+    `dia`, 
+    `mes`, 
+    `ano`, 
+    `precio`, 
+    `id_cliente`, 
+    `id_venta`, 
+    `porcentaje_descuento`
+) VALUES (
+    $pines_comprados,
+    $dia,
+    $mes,
+    $ano,
+    $precio_pin,
+    $id_cliente,
+    $orden,
+    $porcentaje_descuento
+)");
+
+if(!$hay_cliente){
+    // Datos de la venta
+    $nombre = $nombrecompleto;
+    $pines = $pines_comprados;
+    $usuario = $correo;
+    $contrasena = $clave;
+    $precio_pin = $precio_pin;
+    $porcentaje_descuento = $porcentaje_descuento;
+    $subtotal = $precio_normal;
+    $total_pagar = $total;
+
     // Leer plantilla HTML
     $plantilla = file_get_contents(__DIR__ . '/plantillaNuevaVenta.html');
+
     // Reemplazar variables en plantilla
     $plantilla = str_replace('{{nombre}}', $nombre, $plantilla);
     $plantilla = str_replace('{{pines}}', $pines, $plantilla);
@@ -35,19 +113,19 @@ if($tipo_correo == 'nueva_venta_admin'){
 
     // asunto del correo
     $asunto = "Compra de Pines - SIRP";
-} else if ($tipo_correo == 'venta_existente_admin'){
+} else {
     // Datos de la venta
-    $nombre = $_POST['nombre'];
-    $usuario = $_POST['usuario'];
-    $pines = $_POST['pines'];
-    $precio_pin = $_POST['precio_pin'];
-    $porcentaje_descuento = $_POST['porcentaje_descuento'];
+    $nombre = $nombrecompleto;
+    $usuario = $correo;
+    $pines = $pines_comprados;
+    $precio_pin = $precio_pin;
+    $porcentaje_descuento = $porcentaje_descuento;
+    $subtotal = $precio_normal;
+    $total_pagar = $total;
 
-
-    $subtotal = $precio_pin * $pines;
-    $total_pagar = $subtotal - ($subtotal * ($porcentaje_descuento / 100));
     // Leer plantilla HTML
     $plantilla = file_get_contents(__DIR__ . '/plantillaVentaExistente.html');
+
     // Reemplazar variables en plantilla
     $plantilla = str_replace('{{nombre}}', $nombre, $plantilla);
     $plantilla = str_replace('{{pines}}', $pines, $plantilla);
@@ -88,21 +166,21 @@ try {
     $mail->Body  = $plantilla;
 
     if($mail->send()){
-        echo json_encode(array(
-            'codigo' => 1,
-            'mensaje' => 'Mensaje enviado correctamente.'
-         ));
+        echo json_encode([
+            'Mensaje enviado correctamente.',
+            0
+        ]);
     }else{
-        echo json_encode(array(
-            'codigo' => 0,
-            'mensaje' => "Error al enviar el mensaje: {$mail->ErrorInfo}"
-        ));
+        echo json_encode([
+            "Error al enviar el mensaje: {$mail->ErrorInfo}",
+            1
+        ]);
     }
 } catch (Exception $e) {
-    echo json_encode(array(
-        'codigo' => 0,
-        'mensaje' => "Error al enviar el mensaje: {$mail->ErrorInfo}"
-    ));
+    echo json_encode([
+        "Error al enviar el mensaje: {$mail->ErrorInfo}",
+        1
+    ]);
 }
 
 
