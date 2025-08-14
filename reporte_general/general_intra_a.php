@@ -1027,7 +1027,7 @@ function formarArrayRiesgo($fadim){
     </div>
     <div class="salto"></div>
     <div style="text-align: left;" class="contenido">
-        <p><strong>2.1.1. Dimension: Características del liderazgo</strong></p>
+        <p><strong>2.1.1. Dimensión: Características del liderazgo</strong></p>
         <i>Figura 3. Niveles de riesgo de la dimensión: Características del liderazgo</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1054,7 +1054,7 @@ function formarArrayRiesgo($fadim){
                 plugins: [ChartDataLabels] 
             });
         </script>
-        <p><strong>2.1.2. Dimension: Relaciones sociales en el trabajo</strong></p>
+        <p><strong>2.1.2. Dimensión: Relaciones sociales en el trabajo</strong></p>
         <i>Figura 4. Niveles de riesgo de la dimensión: Relaciones sociales en el trabajo</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1084,7 +1084,7 @@ function formarArrayRiesgo($fadim){
     </div>
     <div class="salto"></div>
     <div style="text-align: left;" class="contenido">
-        <p><strong>2.1.3. Dimension: Retroalimentación del desempeño</strong></p>
+        <p><strong>2.1.3. Dimensión: Retroalimentación del desempeño</strong></p>
         <i>Figura 5. Niveles de riesgo de la dimensión: Retroalimentación del desempeño</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1111,7 +1111,7 @@ function formarArrayRiesgo($fadim){
                 plugins: [ChartDataLabels] 
             });
         </script>
-        <p><strong>2.1.4. Dimension: Relación con los colaboradores</strong></p>
+        <p><strong>2.1.4. Dimensión: Relación con los colaboradores</strong></p>
         <i>Figura 6. Niveles de riesgo de la dimensión: Relación con los colaboradores</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1168,7 +1168,7 @@ function formarArrayRiesgo($fadim){
                 plugins: [ChartDataLabels] 
             });
         </script>
-        <p><strong>2.2.1. Dimension: Claridad de rol </strong></p>
+        <p><strong>2.2.1. Dimensión: Claridad de rol </strong></p>
         <i>Figura 8. Niveles de riesgo de la dimensión: Claridad de rol</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1198,7 +1198,7 @@ function formarArrayRiesgo($fadim){
     </div>
     <div class="salto"></div>
     <div style="text-align: left;" class="contenido">
-        <p><strong>2.2.2. Dimension: Capacitación</strong></p>
+        <p><strong>2.2.2. Dimensión: Capacitación</strong></p>
         <i>Figura 9. Niveles de riesgo de la dimensión: Capacitación</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1225,7 +1225,7 @@ function formarArrayRiesgo($fadim){
                 plugins: [ChartDataLabels] 
             });
         </script>
-        <p><strong>2.2.3. Dimension: Participación y manejo del cambio</strong></p>
+        <p><strong>2.2.3. Dimensión: Participación y manejo del cambio</strong></p>
         <i>Figura 10. Niveles de riesgo de la dimensión: Participación y manejo del cambio</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1255,7 +1255,7 @@ function formarArrayRiesgo($fadim){
     </div>
     <div class="salto"></div>
     <div style="text-align: left;" class="contenido">
-        <p><strong>2.2.4. Dimension: Oportunidades para el uso y desarrollo de habilidades y conocimientos</strong></p>
+        <p><strong>2.2.4. Dimensión: Oportunidades para el uso y desarrollo de habilidades y conocimientos</strong></p>
         <i>Figura 11. Niveles de riesgo de la dimensión: Oportunidades para el uso y desarrollo de habilidades y conocimientos</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1282,7 +1282,7 @@ function formarArrayRiesgo($fadim){
                 plugins: [ChartDataLabels] 
             });
         </script>
-        <p><strong>2.2.5. Dimension: Control y autonomía sobre el trabajo</strong></p>
+        <p><strong>2.2.5. Dimensión: Control y autonomía sobre el trabajo</strong></p>
         <i>Figura 12. Niveles de riesgo de la dimensión: Control y autonomía sobre el trabajo</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1339,7 +1339,7 @@ function formarArrayRiesgo($fadim){
                 plugins: [ChartDataLabels]  
             });
         </script>
-        <p><strong>2.3.1. Dimension: Demandas ambientales y de esfuerzo físico</strong></p>
+        <p><strong>2.3.1. Dimensión: Demandas ambientales y de esfuerzo físico</strong></p>
         <i>Figura 14. Niveles de riesgo de la dimensión: Demandas ambientales y de esfuerzo físico</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1369,7 +1369,7 @@ function formarArrayRiesgo($fadim){
     </div>
     <div class="salto"></div>
     <div style="text-align: left;" class="contenido">
-        <p><strong>2.3.2. Dimension: Demandas emocionales</strong></p>
+        <p><strong>2.3.2. Dimensión: Demandas emocionales</strong></p>
         <i>Figura 15. Niveles de riesgo de la dimensión: Demandas emocionales</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1396,7 +1396,7 @@ function formarArrayRiesgo($fadim){
                 plugins: [ChartDataLabels] 
             });
         </script>
-         <p><strong>2.3.3. Dimension: Demandas cuantitativas</strong></p>
+         <p><strong>2.3.3. Dimensión: Demandas cuantitativas</strong></p>
         <i>Figura 16. Niveles de riesgo de la dimensión: Demandas cuantitativas</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1426,7 +1426,7 @@ function formarArrayRiesgo($fadim){
     </div>
     <div class="salto"></div>
     <div style="text-align: left;" class="contenido">
-        <p><strong>2.3.4. Dimension: Influencia del trabajo sobre el entorno extralaboral</strong></p>
+        <p><strong>2.3.4. Dimensión: Influencia del trabajo sobre el entorno extralaboral</strong></p>
         <i>Figura 17. Niveles de riesgo de la dimensión: Influencia del trabajo sobre el entorno extralaboral</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1453,7 +1453,7 @@ function formarArrayRiesgo($fadim){
                 plugins: [ChartDataLabels] 
             });
         </script>
-        <p><strong>2.3.5. Dimension: Exigencias de responsabilidad del cargo</strong></p>
+        <p><strong>2.3.5. Dimensión: Exigencias de responsabilidad del cargo</strong></p>
         <i>Figura 18. Niveles de riesgo de la dimensión: Exigencias de responsabilidad del cargo</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1483,7 +1483,7 @@ function formarArrayRiesgo($fadim){
     </div>
     <div class="salto"></div>
     <div style="text-align: left;" class="contenido">
-        <p><strong>2.3.6. Dimension: Demandas de carga mental</strong></p>
+        <p><strong>2.3.6. Dimensión: Demandas de carga mental</strong></p>
         <i>Figura 19. Niveles de riesgo de la dimensión: Demandas de carga mental</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1510,7 +1510,7 @@ function formarArrayRiesgo($fadim){
                 plugins: [ChartDataLabels] 
             });
         </script>
-        <p><strong>2.3.7. Dimension: Consistencia del rol</strong></p>
+        <p><strong>2.3.7. Dimensión: Consistencia del rol</strong></p>
         <i>Figura 20. Niveles de riesgo de la dimensión: Consistencia del rol</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1540,7 +1540,7 @@ function formarArrayRiesgo($fadim){
     </div>
     <div class="salto"></div>
     <div style="text-align: left;" class="contenido">
-        <p><strong>2.3.8. Dimension: Demandas de la jornada de trabajo</strong></p>
+        <p><strong>2.3.8. Dimensión: Demandas de la jornada de trabajo</strong></p>
         <i>Figura 21. Niveles de riesgo de la dimensión: Demandas de la jornada de trabajo</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
@@ -1598,8 +1598,8 @@ function formarArrayRiesgo($fadim){
     </div>
     <div class="salto"></div>
     <div style="text-align: left;" class="contenido">
-        <p><strong>2.4.1. Dimension: Recompensas derivadas de la pertenencia a la organización y del trabajo que se realiza</strong></p>
-        <i>Figura 22. Niveles de riesgo del dominio: Recompensas</i>
+        <p><strong>2.4.1. Dimensión: Recompensas derivadas de la pertenencia a la organización y del trabajo que se realiza</strong></p>
+        <i>Figura 23. Niveles de riesgo del dominio: Recompensas</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
             <canvas id="chart_dim_41"></canvas>
@@ -1625,8 +1625,8 @@ function formarArrayRiesgo($fadim){
                 plugins: [ChartDataLabels] 
             }); 
         </script>
-        <p><strong>2.4.2. Dimension: Reconocimiento y compensación</strong></p>
-        <i>Figura 23. Niveles de riesgo del dominio: Reconocimiento y compensación</i>
+        <p><strong>2.4.2. Dimensión: Reconocimiento y compensación</strong></p>
+        <i>Figura 24. Niveles de riesgo del dominio: Reconocimiento y compensación</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
             <canvas id="chart_dim_42"></canvas>
@@ -1895,7 +1895,7 @@ function formarArrayRiesgo($fadim){
         <br>
         <table style="width: 100%;" class="table_bordered">
             <tr>
-                <th>Dimension</th>
+                <th>Dimensión</th>
                 <th>Puntaje (T)</th>
                 <th>Sin riesgo</th>
                 <th>Riesgo bajo</th>
@@ -1980,7 +1980,7 @@ function formarArrayRiesgo($fadim){
     <div class="salto"></div>   
     <div style="text-align: left;" class="contenido">
         <p><strong>2.	Resultado general del Cuestionario Extralaboral por niveles de riesgo</strong></p>
-        <i>Figura 24. Niveles de riesgo del Cuestionario Extralaboral</i>
+        <i>Figura 25. Niveles de riesgo del Cuestionario Extralaboral</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
             <canvas id="chart_dim_total_extra"></canvas>
@@ -2013,7 +2013,7 @@ function formarArrayRiesgo($fadim){
     <div class="salto"></div>   
     <div style="text-align: left;" class="contenido">
         <p><strong>3.1. Dimensión: Tiempo fuera del trabajo</strong></p>
-        <i>Figura 25. Niveles de riesgo de la dimensión: Tiempo fuera del trabajo</i>
+        <i>Figura 26. Niveles de riesgo de la dimensión: Tiempo fuera del trabajo</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
             <canvas id="chart_dim1_extra"></canvas>
@@ -2041,7 +2041,7 @@ function formarArrayRiesgo($fadim){
         </script>
         <br>
         <p><strong>3.2. Dimensión: Relaciones familiares</strong></p>
-        <i>Figura 26. Niveles de riesgo de la dimensión: Relaciones familiares</i>
+        <i>Figura 27. Niveles de riesgo de la dimensión: Relaciones familiares</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
             <canvas id="chart_dim2_extra"></canvas>
@@ -2071,7 +2071,7 @@ function formarArrayRiesgo($fadim){
     <div class="salto"></div>   
     <div style="text-align: left;" class="contenido">
         <p><strong>3.3. Dimensión: Comunicación y relaciones interpersonales</strong></p>
-        <i>Figura 27. Niveles de riesgo de la dimensión: Comunicación y relaciones interpersonales</i>
+        <i>Figura 28. Niveles de riesgo de la dimensión: Comunicación y relaciones interpersonales</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
             <canvas id="chart_dim3_extra"></canvas>
@@ -2099,7 +2099,7 @@ function formarArrayRiesgo($fadim){
         </script>
         <br>
         <p><strong>3.4. Dimensión: Situación económica del grupo familiar</strong></p>
-        <i>Figura 28. Niveles de riesgo de la dimensión: Situación económica del grupo familiar</i>
+        <i>Figura 29. Niveles de riesgo de la dimensión: Situación económica del grupo familiar</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
             <canvas id="chart_dim4_extra"></canvas>
@@ -2129,7 +2129,7 @@ function formarArrayRiesgo($fadim){
     <div class="salto"></div>   
     <div style="text-align: left;" class="contenido">
         <p><strong>3.5. Dimensión: Características de la vivienda y de su entorno</strong></p>
-        <i>Figura 29. Niveles de riesgo de la dimensión: Características de la vivienda y de su entorno</i>
+        <i>Figura 30. Niveles de riesgo de la dimensión: Características de la vivienda y de su entorno</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
             <canvas id="chart_dim5_extra"></canvas>
@@ -2157,7 +2157,7 @@ function formarArrayRiesgo($fadim){
         </script>
         <br>
         <p><strong>3.6. Dimensión: Influencia del entorno extralaboral sobre el trabajo</strong></p>
-        <i>Figura 30. Niveles de riesgo de la dimensión: Influencia del entorno extralaboral sobre el trabajo</i>
+        <i>Figura 31. Niveles de riesgo de la dimensión: Influencia del entorno extralaboral sobre el trabajo</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
             <canvas id="chart_dim6_extra"></canvas>
@@ -2187,7 +2187,7 @@ function formarArrayRiesgo($fadim){
     <div class="salto"></div>   
     <div style="text-align: left;" class="contenido">
         <p><strong>3.7. Dimensión: Desplazamiento vivienda - trabajo - vivienda</strong></p>
-        <i>Figura 31. Niveles de riesgo de la dimensión: Desplazamiento vivienda - trabajo - vivienda</i>
+        <i>Figura 32. Niveles de riesgo de la dimensión: Desplazamiento vivienda - trabajo - vivienda</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
             <canvas id="chart_dim7_extra"></canvas>
@@ -2280,7 +2280,7 @@ function formarArrayRiesgo($fadim){
         </table>
         <br>
         <p><strong>2. Figura de los resultados del Cuestionario del Estrés</strong></p>
-        <i>Figura 32. Niveles de riesgo del Cuestionario del Estrés</i>
+        <i>Figura 33. Niveles de riesgo del Cuestionario del Estrés</i>
         <br>
         <div  style="height: auto !important;" class="chart-container">
             <canvas id="chart_estres"></canvas>

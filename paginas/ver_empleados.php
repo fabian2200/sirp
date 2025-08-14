@@ -2,13 +2,52 @@
 session_start();
 include_once("../conexion.php");
 if(($_SESSION['logueado']) == true){ 
- $idempresa = $_GET['idempr'];
- $idcliente = $_SESSION['id'];
- $sql="SELECT * FROM `empresa` where idem = $idempresa";
- $resultado = mysqli_fetch_array($con -> query($sql));
- $sql2="SELECT * FROM `empleado` where idempresa = $idempresa order by idus desc";
- $resultado2 = $con -> query($sql2);
- include ('ruta.php');
+  $idempresa = $_GET['idempr'];
+  $idcliente = $_SESSION['id'];
+  if(isset($_GET['filtro'])){
+    $filtro = $_GET['filtro'];
+
+    if($filtro == "Completos"){
+        $sql2 = "SELECT * FROM `empleado`
+                 WHERE idempresa = $idempresa
+                   AND (
+                     (test1 = 0 AND (test2 = 2 AND test3 = 2 AND test4 = 2))
+                     OR
+                     (test2 = 0 AND (test1 = 2 AND test3 = 2 AND test4 = 2))
+                   )
+                 ORDER BY idus DESC";
+                 
+        $resultado2 = $con->query($sql2);
+        
+    } else if($filtro == "Incompletos"){
+        $sql2 = "SELECT * FROM `empleado`
+                 WHERE idempresa = $idempresa
+                   AND (
+                     (test1 = 0 AND (test2 <> 2 OR test3 <> 2 OR test4 <> 2))
+                     OR
+                     (test2 = 0 AND (test1 <> 2 OR test3 <> 2 OR test4 <> 2))
+                   )
+                 ORDER BY idus DESC";
+        $resultado2 = $con->query($sql2);
+
+    } else {
+      $filtro = "Todos";
+      $sql2 = "SELECT * FROM `empleado` WHERE idempresa = $idempresa ORDER BY idus DESC";
+      $resultado2 = $con->query($sql2);
+    }
+  } else { 
+    $filtro = "";
+    $sql2="SELECT * FROM `empleado` where idempresa = $idempresa ORDER BY idus DESC";
+    $resultado2 = $con -> query($sql2);
+  }
+
+  $sql="SELECT * FROM `empresa` where idem = $idempresa";
+  $resultado = mysqli_fetch_array($con -> query($sql));
+
+
+  $sqlhayempleados="SELECT * FROM `empleado` where idempresa = $idempresa ORDER BY idus DESC";
+  $resultadohayempleados = $con -> query($sqlhayempleados);
+  include ('ruta.php');
 ?> 
 
   <!DOCTYPE html>
@@ -38,10 +77,11 @@ if(($_SESSION['logueado']) == true){
     <br>
     <div class="text-center">
       <h2><strong><?php echo  $resultado[2]; ?></strong></h2>
+      <div class="text-center"><h2>Estado de los cuestionarios</h2></div>
     </div>
     <hr>
     <?php
-      if($resultado2->num_rows==0){
+      if($resultadohayempleados->num_rows==0){
     ?>
     <div class="alert alert-success" role="alert">
       <h3><strong>Apreciado Experto </strong></h3>
@@ -72,44 +112,60 @@ if(($_SESSION['logueado']) == true){
       </div>
     </div> 
     <?php
-      } else {
-        if($resultado[3] - $resultado[4] > 0){
+      } 
     ?>
-    <br>
     <div class="row">
-      <div class="col-md-8 d-flex align-items-center justify-content-center">
-        <div class="alert alert-danger" role="alert">
-          <strong>Atencion! </strong> el icono de color <strong>rojo</strong> indica que las respuestas del cuestionario no se han digitado, y para hacerlo, debe de darle click.
+      <div class="col-lg-4 d-flex align-items-center justify-content-center">
+        <?php
+          if($resultado[3] - $resultado[4] > 0 && $resultadohayempleados->num_rows!=0){
+        ?>
+          <div class="container text-center">
+            <a style="padding: 20px; font-size: 1.2rem; font-weight: bold;" href="registrar_empleado.php?proceso=<?php echo $idempresa ?>" class="btn btn-warning"><i class="fa fa-user-plus" aria-hidden="true"></i><span> Registrar empleado</span></a>
+          </div>
+        <?php
+          }
+        ?>
+      </div>
+      <div class="col-lg-4 d-flex align-items-center justify-content-center">
+          <?php
+            if($resultadohayempleados->num_rows!=0) {
+          ?>
+          <div class="alert alert-danger d-flex align-items-center justify-content-center" role="alert" style="width: 100%; height: 100%; margin: 0px;">
+            <p style="margin: 0;">El icono de color <strong>rojo</strong> indica que las respuestas del cuestionario no se han digitado.</p>
+          </div>
+          <?php
+            }
+          ?>
+        </div>
+      <div class="col-lg-4 d-flex align-items-center justify-content-center">
+        <div class="alert alert-info d-flex align-items-center justify-content-center" role="alert" style="width: 100%; height: 100%; margin: 0px;">
+          <div style="width: 100%; text-align: left;">
+            <h4>Filtrar por estado:</h4>
+            <select class="form-control" id="filtro" onchange="filtrarEmpleados()">
+              <option <?php if($filtro == "Todos") echo "selected"; ?>   value="Todos">Todos</option>
+              <option <?php if($filtro == "Completos") echo "selected"; ?> value="Completos">Tests Completos</option>
+              <option <?php if($filtro == "Incompletos") echo "selected"; ?> value="Incompletos">Tests Incompletos</option>
+            </select>
+          </div>
         </div>
       </div>
-      <div class="col-md-4 d-flex align-items-center justify-content-center">
-        <div class="container text-center">
-          <a href="registrar_empleado.php?proceso=<?php echo $idempresa ?>" class="btn btn-warning"><i class="fa fa-user-plus" aria-hidden="true"></i><span> Registrar empleado</span></a>
-        </div>
-      </div>
-      </div>
-      <br>
-      <hr>
-    <?php
-        }
-      }
-    ?>
-    <div class="text-center"><h2>Estado de los cuestionarios</h2></div>
+    </div>
     <br>
-<div class="container">
-<div class="table-responsive">
-  <table id="example"  class="table table-sm table-striped table-hover table-bordered">
-    <thead>
-            <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Empleado</th>
-            <th scope="col">Intra</th>
-            <th scope="col">Extralaboral</th>
-            <th scope="col">Estres</th>
-            <th scope="col">Accion</th>
-          </tr>
-    </thead>
-	<tbody>
+
+    <div class="container">
+      <div class="table-responsive">
+        <table id="example"  class="table table-sm table-striped table-hover table-bordered">
+          <thead>
+                  <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Empleado</th>
+                  <th scope="col">Intra</th>
+                  <th scope="col">Extralaboral</th>
+                  <th scope="col">Estres</th>
+                  <th scope="col">Accion</th>
+                </tr>
+          </thead>
+        <tbody>
 <?php 
         while ($row = mysqli_fetch_array($resultado2)) {  
         $rutaa = ruta_A($row[29],$row[30],$row[31],$row[32],$row[33],$row[34],$row[0]); 
@@ -709,6 +765,13 @@ if(($_SESSION['logueado']) == true){
         window.location.href = href;
         return;
       }
+    }
+  </script>
+
+  <script>
+    function filtrarEmpleados(){
+      var filtro = document.getElementById('filtro').value;
+      window.location.href = 'ver_empleados.php?idempr=<?php echo $idempresa ?>&filtro=' + filtro;
     }
   </script>
 </html>
